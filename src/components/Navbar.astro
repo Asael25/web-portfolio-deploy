@@ -16,6 +16,7 @@
       <a href="#story" class="nav-item">Dokumentasi</a>
       <a href="#projects" class="nav-item">Proyek</a>
       <a href="#contact" class="nav-item">Kontak</a>
+      <a href="/Resume_Surya_Asael.pdf" target="_blank" download="Resume_Surya_Asael.pdf" class="nav-item mobile-cv-link">Download CV (PDF) &darr;</a>
     </nav>
 
     <div class="nav-actions">
@@ -107,6 +108,10 @@
 
   .nav-item:hover {
     color: var(--text-primary);
+  }
+
+  .mobile-cv-link {
+    display: none;
   }
 
   .nav-actions {
@@ -212,6 +217,12 @@
 
     .nav-item:last-child {
       border-bottom: none;
+    }
+
+    .mobile-cv-link {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
     }
 
     .mobile-toggle {
