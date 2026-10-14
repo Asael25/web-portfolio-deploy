@@ -86,6 +86,12 @@ body {
   padding: 0 24px;
 }
 
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
 /* Section Header (Anti-AI Slop: Editorial, Structured, Pure Black & White) */
 .section-tag {
   display: inline-flex;
