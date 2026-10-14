@@ -1,0 +1,173 @@
+---
+const skillCategories = [
+  {
+    code: "BACKEND",
+    title: "Backend Development",
+    description: "Membangun logika bisnis yang tangguh, sistem autentikasi aman, dan REST API yang terstruktur.",
+    skills: [
+      "PHP",
+      "Laravel (Eloquent ORM, Sanctum, Middleware)",
+      "RESTful API Development",
+      "Blade Templating"
+    ]
+  },
+  {
+    code: "FRONTEND",
+    title: "Frontend Engineering",
+    description: "Mengembangkan antarmuka interaktif, responsif lintas perangkat, dan performa rendering kilat.",
+    skills: [
+      "React.js (Hooks & State Management)",
+      "JavaScript (ES6+)",
+      "Tailwind CSS",
+      "Bootstrap & CSS Grid/Flexbox",
+      "Responsive UI/UX"
+    ]
+  },
+  {
+    code: "DATABASE",
+    title: "Database Management",
+    description: "Desain relasi tabel optimal, normalisasi database, optimasi query, dan manajemen penyimpanan awan.",
+    skills: [
+      "MySQL",
+      "PostgreSQL",
+      "Supabase",
+      "Firebase",
+      "Database Schema Design & Query"
+    ]
+  },
+  {
+    code: "DEVOPS & TOOLS",
+    title: "Tools & Ekosistem",
+    description: "Alat bantu pengembangan modern untuk kolaborasi kode, visualisasi analitik, dan arsitektur.",
+    skills: [
+      "Git & GitHub Version Control",
+      "Chart.js Data Visualization",
+      "Vite Build Tool",
+      "FormSubmit Integration",
+      "PlantUML & UML Modeling"
+    ]
+  }
+];
+---
+
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">KOMPETENSI TEKNIS</div>
+      <h2 class="section-title">Keahlian & Ekosistem Teknologi</h2>
+      <p class="section-subtitle">
+        Kombinasi teknologi full-stack modern yang diimplementasikan pada proyek tugas akhir, sistem kedinasan, hingga aplikasi klien komersial.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+      {skillCategories.map((cat) => (
+        <div class="skill-category-card">
+          <div class="card-head">
+            <span class="cat-code font-mono">// {cat.code}</span>
+          </div>
+
+          <h3 class="cat-title">{cat.title}</h3>
+          <p class="cat-desc">{cat.description}</p>
+
+          <div class="skill-list">
+            {cat.skills.map((item) => (
+              <div class="skill-item">
+                <span class="skill-dash font-mono">&bull;</span>
+                <span class="skill-name">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .skill-category-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 30px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .skill-category-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .card-head {
+    margin-bottom: 14px;
+  }
+
+  .cat-code {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .cat-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .cat-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.88rem;
+  }
+
+  .skill-dash {
+    color: var(--text-muted);
+  }
+
+  .skill-name {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  @media (max-width: 868px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

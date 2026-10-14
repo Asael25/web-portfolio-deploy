@@ -1,0 +1,221 @@
+---
+---
+
+<header class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="#hero" class="brand">
+      <span class="brand-name">SURYA ASAEL</span>
+      <span class="brand-role font-mono">/ DEV</span>
+    </a>
+
+    <nav class="nav-links" id="navMenu">
+      <a href="#about" class="nav-item">Tentang</a>
+      <a href="#skills" class="nav-item">Keahlian</a>
+      <a href="#experience" class="nav-item">Pengalaman</a>
+      <a href="#awards" class="nav-item">Prestasi</a>
+      <a href="#story" class="nav-item">Dokumentasi</a>
+      <a href="#projects" class="nav-item">Proyek</a>
+      <a href="#contact" class="nav-item">Kontak</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Dark/Light Theme Toggle -->
+      <button id="themeToggle" class="theme-toggle" aria-label="Ganti Mode Tampilan" title="Ganti Tema">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <a href="/Resume_Surya_Asael.pdf" target="_blank" download="Resume_Surya_Asael.pdf" class="btn btn-outline cv-btn">
+        <span>Download CV</span>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--transition);
+  }
+
+  .navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--text-primary);
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-item {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 6px 0;
+  }
+
+  .nav-item:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: var(--transition);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--border-strong);
+  }
+
+  .sun-icon {
+    display: none;
+  }
+  .moon-icon {
+    display: block;
+  }
+
+  [data-theme='dark'] .sun-icon {
+    display: block;
+  }
+  [data-theme='dark'] .moon-icon {
+    display: none;
+  }
+
+  .cv-btn {
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 0;
+  }
+
+  .mobile-toggle span {
+    width: 100%;
+    height: 2px;
+    background: var(--text-primary);
+  }
+
+  @media (max-width: 868px) {
+    .nav-links {
+      position: absolute;
+      top: 68px;
+      left: 0;
+      width: 100%;
+      background: var(--bg-primary);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-light);
+      display: none;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('navMenu');
+  mobileToggle?.addEventListener('click', () => {
+    navMenu?.classList.toggle('active');
+  });
+
+  navMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+    });
+  });
+</script>

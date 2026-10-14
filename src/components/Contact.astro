@@ -1,0 +1,228 @@
+---
+---
+
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-card">
+      <div class="contact-grid">
+        <!-- Left: Contact Details -->
+        <div class="contact-info">
+          <div class="section-tag">HUBUNGI SAYA</div>
+          <h2 class="contact-heading">Mari Berdiskusi & Membangun Sistem</h2>
+          
+          <p class="contact-lead">
+            Terbuka untuk peluang karier (Full-time / Contract), proyek aplikasi web freelance, atau diskusi teknis seputar arsitektur perangkat lunak.
+          </p>
+
+          <div class="contact-items">
+            <!-- WhatsApp Item -->
+            <a href="https://wa.me/6285748174086" target="_blank" rel="noopener noreferrer" class="contact-item">
+              <div class="item-text font-mono">
+                <span class="label">// NO. TELEPON / WHATSAPP</span>
+                <span class="val">0857-4817-4086 &rarr;</span>
+              </div>
+            </a>
+
+            <!-- Email Item -->
+            <a href="mailto:suryaasael6@gmail.com" class="contact-item">
+              <div class="item-text font-mono">
+                <span class="label">// EMAIL RESMI</span>
+                <span class="val">suryaasael6@gmail.com &rarr;</span>
+              </div>
+            </a>
+
+            <!-- Location Item -->
+            <div class="contact-item no-link">
+              <div class="item-text font-mono">
+                <span class="label">// LOKASI DOMISILI</span>
+                <span class="val">Surabaya & Gresik, Jawa Timur, Indonesia</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Fast Message Form -->
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); window.location.href = `mailto:suryaasael6@gmail.com?subject=Inquiry Kerjasama dari ${document.getElementById('senderName').value}&body=Halo Surya,%0D%0A%0D%0A${document.getElementById('senderMessage').value}%0D%0A%0D%0AKontak: ${document.getElementById('senderEmail').value}`;">
+            <div class="form-header font-mono">
+              <span class="form-title">// PESAN CEPAT</span>
+              <span class="form-desc">[DIRECT MAILTO]</span>
+            </div>
+
+            <div class="form-group">
+              <label for="senderName" class="font-mono">NAMA LENGKAP</label>
+              <input type="text" id="senderName" placeholder="Nama Anda / Perusahaan" required />
+            </div>
+
+            <div class="form-group">
+              <label for="senderEmail" class="font-mono">EMAIL</label>
+              <input type="email" id="senderEmail" placeholder="nama@perusahaan.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="senderMessage" class="font-mono">PESAN / KEBUTUHAN SISTEM</label>
+              <textarea id="senderMessage" rows="4" placeholder="Jelaskan kebutuhan sistem atau pesan Anda..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn font-mono">
+              <span>KIRIM PESAN SEKARANG</span>
+              <span>&rarr;</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .contact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 48px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: flex-start;
+  }
+
+  .contact-heading {
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.03em;
+  }
+
+  .contact-lead {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-item {
+    padding: 14px 18px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition);
+  }
+
+  .contact-item:not(.no-link):hover {
+    border-color: var(--border-strong);
+  }
+
+  .item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .item-text .label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .item-text .val {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  /* Form */
+  .contact-form-wrapper {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 28px;
+  }
+
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .form-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.08em;
+  }
+
+  .form-desc {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .form-group label {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    transition: var(--transition);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--border-strong);
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 6px;
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 968px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .contact-card {
+      padding: 24px;
+    }
+  }
+</style>

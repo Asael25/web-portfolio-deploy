@@ -1,0 +1,289 @@
+---
+---
+
+<section class="gallery-section" id="story">
+  <div class="container">
+    <div class="gallery-header">
+      <div class="section-tag font-mono">// ARSIP MAHASISWA & RISET</div>
+      <h2 class="section-title">Galeri Semasa Kuliah</h2>
+      <p class="section-subtitle">
+        Fragmen rekam jejak semasa menempuh studi: momen wisuda sarjana, pengabdian KKN di Mojokerto, riset dan pitching kompetisi internasional, hingga penyerahan medali kejuaraan di Universitas 17 Agustus 1945 Surabaya.
+      </p>
+    </div>
+
+    <!-- Abstract Asymmetric Gallery (Ordered 01 to 04) -->
+    <div class="abstract-gallery">
+      <!-- 01. Centerpiece Feature: Wisuda S.Kom (Top Priority / Order 1) -->
+      <div class="gallery-item item-centerpiece">
+        <div class="centerpiece-box">
+          <img 
+            src="/images/story/wisuda-skom.png" 
+            alt="Surya Asael, S.Kom memakai toga wisuda lengkap" 
+            class="centerpiece-photo"
+            loading="lazy"
+          />
+          <div class="centerpiece-overlay">
+            <span class="photo-tag font-mono">[01] MOMEN WISUDA</span>
+            <span class="photo-sub font-mono">SURYA ASAEL, S.Kom</span>
+          </div>
+        </div>
+        <div class="item-caption font-mono">
+          <span class="cap-num">01.</span>
+          <div class="cap-body">
+            <h3 class="cap-title">Wisuda & Gelar Sarjana Komputer (S.Kom)</h3>
+            <p class="cap-desc">Puncak perjalanan akademik di Universitas 17 Agustus 1945 Surabaya setelah menyelesaikan perkuliahan, riset kompetisi, dan ujian skripsi.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02. KKN Keberangkatan ke Mojokerto -->
+      <div class="gallery-item item-kkn">
+        <div class="item-visual visual-portrait">
+          <img 
+            src="/images/story/kkn-mojokerto.jpg" 
+            alt="Kelompok KKN UNTAG Surabaya menuju Desa Payungrejo Mojokerto" 
+            class="gallery-photo"
+            loading="lazy"
+          />
+          <div class="photo-overlay">
+            <span class="photo-tag font-mono">[02] KKN MOJOKERTO</span>
+            <span class="photo-sub font-mono">DESA PAYUNGREJO</span>
+          </div>
+        </div>
+        <div class="item-caption font-mono">
+          <span class="cap-num">02.</span>
+          <div class="cap-body">
+            <h3 class="cap-title">Pengabdian KKN di Mojokerto</h3>
+            <p class="cap-desc">Keberangkatan bersama kelompok KKN menuju Desa Payungrejo, Mojokerto untuk pengabdian masyarakat.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03. Pitching KALORA -->
+      <div class="gallery-item item-pitching">
+        <div class="item-visual visual-landscape">
+          <img 
+            src="/images/story/tisiif-pitching.jpg" 
+            alt="Presentasi Pitching KALORA di TISIIF" 
+            class="gallery-photo"
+            loading="lazy"
+          />
+          <div class="photo-overlay">
+            <span class="photo-tag font-mono">[03] PITCHING ROOM</span>
+            <span class="photo-sub font-mono">TISIIF 2026 &bull; KALORA AI/IoT</span>
+          </div>
+        </div>
+        <div class="item-caption font-mono">
+          <span class="cap-num">03.</span>
+          <div class="cap-body">
+            <h3 class="cap-title">Pitching Sistem Cerdas KALORA</h3>
+            <p class="cap-desc">Presentasi purwarupa smart vending KALORA di hadapan dewan juri kompetisi inovasi internasional TISIIF.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04. Award Ceremony TISIIF -->
+      <div class="gallery-item item-award">
+        <div class="item-visual visual-award">
+          <img 
+            src="/images/story/tisiif-award.png" 
+            alt="Penyerahan Sertifikat Juara Silver Medal TISIIF" 
+            class="gallery-photo"
+            loading="lazy"
+          />
+          <div class="photo-overlay">
+            <span class="photo-tag font-mono">[04] PENGANUGERAHAN</span>
+            <span class="photo-sub font-mono">SILVER MEDALIST &bull; TISIIF</span>
+          </div>
+        </div>
+        <div class="item-caption font-mono">
+          <span class="cap-num">04.</span>
+          <div class="cap-body">
+            <h3 class="cap-title">Penganugerahan Silver Medal</h3>
+            <p class="cap-desc">Penyerahan sertifikat penghargaan Silver Medal bersama tim delegasi UNTAG Surabaya pada panggung kejuaraan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-header {
+    margin-bottom: 44px;
+    text-align: left;
+  }
+
+  /* Abstract Asymmetric Grid with 01 as primary centerpiece */
+  .abstract-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr 1fr;
+    grid-template-areas: 
+      "kkn center pitching"
+      "kkn center award";
+    gap: 32px 28px;
+    align-items: start;
+    position: relative;
+  }
+
+  .gallery-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: left;
+    transition: var(--transition);
+  }
+
+  .item-centerpiece {
+    grid-area: center;
+    z-index: 2;
+  }
+
+  .item-kkn {
+    grid-area: kkn;
+  }
+
+  .item-pitching {
+    grid-area: pitching;
+  }
+
+  .item-award {
+    grid-area: award;
+  }
+
+  /* Photo Containers */
+  .item-visual,
+  .centerpiece-box {
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    background: var(--bg-secondary);
+    transition: var(--transition);
+    width: 100%;
+  }
+
+  .visual-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .visual-landscape {
+    aspect-ratio: 16 / 10;
+  }
+
+  .visual-award {
+    aspect-ratio: 4 / 3;
+  }
+
+  .centerpiece-box {
+    aspect-ratio: 3 / 4;
+  }
+
+  .centerpiece-photo,
+  .gallery-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .centerpiece-box:hover .centerpiece-photo,
+  .item-visual:hover .gallery-photo {
+    transform: scale(1.03);
+  }
+
+  .centerpiece-box:hover,
+  .item-visual:hover {
+    border-color: var(--border-strong);
+  }
+
+  .centerpiece-overlay,
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 14px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    color: #ffffff;
+    font-size: 0.7rem;
+    pointer-events: none;
+  }
+
+  .photo-tag {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .photo-sub {
+    color: #d4d4d8;
+    font-size: 0.68rem;
+  }
+
+  /* Captions (Clean Left Aligned Typography) */
+  .item-caption {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .cap-num {
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .cap-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cap-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  .cap-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Responsive Mobile/Tablet Order */
+  @media (max-width: 992px) {
+    .abstract-gallery {
+      grid-template-columns: 1fr;
+      grid-template-areas: 
+        "center"
+        "kkn"
+        "pitching"
+        "award";
+      gap: 36px;
+    }
+
+    .gallery-item {
+      max-width: 520px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Highlights from '../components/Highlights.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import Awards from '../components/Awards.astro';
+import Story from '../components/Story.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>Surya Asael, S.Kom | Web & Software Developer Portfolio</title>
+    <meta name="title" content="Surya Asael, S.Kom | Web & Software Developer Portfolio" />
+    <meta name="description" content="Portofolio resmi Surya Asael, S.Kom - Full-Stack Web Developer berpengalaman dengan Laravel, React.js, dan MySQL. Lulusan S1 Informatika UNTAG Surabaya dengan sertifikasi BNSP dan penghargaan internasional." />
+    <meta name="keywords" content="Surya Asael, Web Developer, Full-Stack Developer, Laravel, React, Tailwind CSS, Portfolio, UNTAG Surabaya, S.Kom" />
+    <meta name="author" content="Surya Asael" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Surya Asael, S.Kom | Web & Software Developer" />
+    <meta property="og:description" content="Portofolio resmi Surya Asael - Full-Stack Developer spesialis Laravel & React.js." />
+    <meta property="og:image" content="/images/surya-hero.png" />
+
+    <!-- Preconnect Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <Navbar />
+    <main>
+      <Hero />
+      <Highlights />
+      <About />
+      <Skills />
+      <Experience />
+      <Awards />
+      <Story />
+      <Projects />
+      <Contact />
+    </main>
+    <Footer />
+  </body>
+</html>

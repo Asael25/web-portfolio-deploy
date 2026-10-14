@@ -1,0 +1,122 @@
+---
+const stats = [
+  {
+    number: "4+",
+    label: "Proyek Klien",
+    desc: "Aplikasi web & landing page komersial",
+  },
+  {
+    number: "2",
+    label: "Penghargaan Internasional",
+    desc: "Gold & Silver Medals kompetisi inovasi",
+  },
+  {
+    number: "3.62",
+    label: "IPK Kelulusan",
+    desc: "S1 Teknik Informatika UNTAG Surabaya",
+  },
+  {
+    number: "BNSP",
+    label: "Junior Web Programmer",
+    desc: "Sertifikasi resmi kompetensi nasional",
+  },
+];
+---
+
+<section class="highlights-section">
+  <div class="container">
+    <div class="highlights-grid">
+      {stats.map((item, index) => (
+        <div class="stat-card">
+          <div class="stat-index font-mono">0{index + 1}</div>
+          <div class="stat-number">{item.number}</div>
+          <div class="stat-label">{item.label}</div>
+          <div class="stat-desc">{item.desc}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .highlights-section {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+  }
+
+  .stat-card {
+    padding: 24px;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-light);
+    transition: var(--transition);
+  }
+
+  .stat-card:last-child {
+    border-right: none;
+  }
+
+  .stat-card:hover {
+    background: var(--bg-secondary);
+  }
+
+  .stat-index {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .stat-number {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .stat-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 900px) {
+    .highlights-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stat-card:nth-child(2) {
+      border-right: none;
+    }
+    .stat-card:nth-child(1),
+    .stat-card:nth-child(2) {
+      border-bottom: 1px solid var(--border-light);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+    .stat-card {
+      border-right: none !important;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .stat-card:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

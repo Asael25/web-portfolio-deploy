@@ -1,0 +1,157 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-name">SURYA ASAEL</span>
+          <span class="brand-role font-mono">/ PORTFOLIO</span>
+        </div>
+        <p class="brand-desc">
+          Web & Software Developer | S1 Teknik Informatika Universitas 17 Agustus 1945 Surabaya. Berfokus pada perancangan arsitektur sistem berbasis Laravel, React, dan MySQL.
+        </p>
+      </div>
+
+      <div class="footer-nav">
+        <div class="nav-group font-mono">
+          <span class="nav-group-title">// NAVIGASI</span>
+          <a href="#about">Tentang</a>
+          <a href="#skills">Keahlian</a>
+          <a href="#experience">Pengalaman</a>
+          <a href="#awards">Prestasi</a>
+          <a href="#story">Dokumentasi</a>
+          <a href="#projects">Proyek</a>
+        </div>
+
+        <div class="nav-group font-mono">
+          <span class="nav-group-title">// TAUTAN RESMI</span>
+          <a href="https://wa.me/6285748174086" target="_blank" rel="noopener noreferrer">WhatsApp Direct</a>
+          <a href="mailto:suryaasael6@gmail.com">suryaasael6@gmail.com</a>
+          <a href="/Resume_Surya_Asael.pdf" target="_blank" download="Resume_Surya_Asael.pdf">Download CV / Resume</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom font-mono">
+      <p class="copyright">
+        &copy; {currentYear} SURYA ASAEL, S.Kom. ALL RIGHTS RESERVED.
+      </p>
+
+      <a href="#hero" class="back-to-top font-mono" aria-label="Kembali ke atas">
+        [KEMBALI KE ATAS &uarr;]
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--bg-card);
+    padding: 60px 0 30px;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    max-width: 440px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .brand-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .brand-role {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  .brand-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+
+  .nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+
+  .nav-group-title {
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .nav-group a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .nav-group a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .back-to-top {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .back-to-top:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .footer-top {
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+</style>

@@ -1,0 +1,635 @@
+---
+const projects = [
+  {
+    id: "mcrepes",
+    category: "enterprise",
+    badge: "Skripsi / Tugas Akhir",
+    title: "M'Crepes Inventory System",
+    subtitle: "Sistem Informasi Manajemen Stok & Analisis EOQ",
+    image: "/images/projects/mcrepes.jpg",
+    problem: "UMKM M'Crepes mengelola stok bahan baku secara manual tanpa metode baku, sehingga rawan overstock, kehabisan bahan mendadak, dan tidak ada acuan kapan harus memesan.",
+    solution: "Membangun sistem perhitungan otomatis EOQ, ROP, dan Safety Stock per item bahan baku, dilengkapi klasifikasi ABC dan dashboard monitoring analitik.",
+    features: [
+      "Perhitungan EOQ, ROP, dan Safety Stock otomatis per item bahan baku",
+      "Klasifikasi ABC untuk memprioritaskan kontrol item bernilai tinggi",
+      "Dashboard real-time menampilkan status stok aman dan item yang perlu direstock",
+      "Visualisasi komposisi kelas ABC dalam bentuk grafik donat interaktif (Chart.js)"
+    ],
+    role: "Merancang skema database, membangun logika matematika perhitungan EOQ/ROP/Safety Stock, dan mengembangkan dashboard analitik dari nol sebagai tugas akhir individu.",
+    stack: ["Laravel", "MySQL", "Blade", "Tailwind CSS", "Chart.js"],
+    liveUrl: null,
+    statusText: "Tugas Akhir Individu (S1 Informatika)"
+  },
+  {
+    id: "arsip",
+    category: "enterprise",
+    badge: "Magang Kedinasan",
+    title: "Sistem Arsip DPU Bina Marga Jatim",
+    subtitle: "Digitalisasi Arsip, Kardus & Data Kepegawaian Dinas",
+    image: "/images/projects/arsip-binamarga.jpg",
+    problem: "Arsip fisik tersimpan dalam ratusan kardus tanpa rekaman digital; riwayat serah-terima antar pegawai sulit dilacak, dan pembuatan berita acara serah terima masih manual.",
+    solution: "Mendigitalkan 54 unit kerja dan pegawai dinas dalam sistem terpusat, fitur cetak Berita Acara otomatis, dan modul pencarian arsip berbasis kardus yang cepat.",
+    features: [
+      "Mendigitalkan data 54 unit kerja dan 54 pegawai dinas dalam satu sistem terpusat",
+      "Pencatatan rantai penerima-pengirim arsip lengkap dengan jumlah kardus per pengiriman",
+      "Fitur cetak otomatis Berita Acara Serah Terima, menggantikan proses manual",
+      "Pencarian arsip terpusat sehingga dokumen lebih mudah dan cepat dilacak"
+    ],
+    role: "Bergabung sebagai peserta magang selama 2 bulan, membangun modul Arsip, Kardus, Unit Kerja, dan Data Pegawai menggunakan Laravel dan MySQL di bawah bimbingan tim IT dinas.",
+    stack: ["Laravel", "MySQL", "Blade", "Bootstrap"],
+    liveUrl: null,
+    statusText: "Dinas PU Bina Marga Prov. Jatim"
+  },
+  {
+    id: "chandrakirana",
+    category: "client",
+    badge: "Freelance Client Project",
+    title: "CV Chandra Kirana Indonesia",
+    subtitle: "Company Profile Website Kontraktor Konstruksi Surabaya",
+    image: "/images/projects/chandrakirana.jpg",
+    problem: "Sebagai kontraktor yang menangani klien pemerintah dan swasta, dibutuhkan platform digital elegan untuk membuktikan legalitas, portofolio fisik, dan kredibilitas bisnis.",
+    solution: "Website multi-halaman berdesain premium bernuansa navy & gold, galeri proyek berfilter, slider testimoni interaktif, dan formulir lead terhubung FormSubmit.",
+    features: [
+      "Website multi-halaman: Beranda, Tentang Kami, Layanan, Legalitas, Testimoni",
+      "Galeri portofolio proyek nyata dengan grid yang dapat difilter",
+      "Testimoni klien interaktif dengan mode drag-to-scroll",
+      "Form kontak terintegrasi FormSubmit untuk lead prospek masuk otomatis",
+      "Desain premium bernuansa navy & gold sesuai identitas brand klien"
+    ],
+    role: "Mengerjakan proyek secara mandiri sebagai freelancer melalui CodeVela: desain sistem visual, pengembangan setiap halaman, hingga integrasi form kontak.",
+    stack: ["Tailwind CSS", "JavaScript", "HTML5", "FormSubmit"],
+    liveUrl: null,
+    statusText: "Client di Surabaya"
+  },
+  {
+    id: "boltz",
+    category: "webapp",
+    badge: "Freelance Client Project",
+    title: "Bolt-Z Laundry Modern Platform",
+    subtitle: "Platform Digital Bisnis Laundry Syariah di Gresik",
+    image: "/images/projects/boltz.jpg",
+    problem: "Perlu menghadirkan identitas digital fresh untuk mempromosikan keunggulan laundry syariah kilat 2 jam dengan navigasi paket yang informatif bagi pelanggan.",
+    solution: "Landing page interaktif dengan animasi Framer Motion, filter paket cuci, informasi teknologi filtrasi air, dan tombol pemesanan WhatsApp langsung.",
+    features: [
+      "Landing page interaktif untuk bisnis laundry syariah di Gresik",
+      "Menonjolkan keunggulan layanan (air terfilter, kilat 2 jam, 100% syariah)",
+      "Katalog paket dan pelacakan status pesanan (mockup)",
+      "Animasi transisi halus menggunakan Framer Motion dan desain responsif"
+    ],
+    role: "Pengembangan frontend React.js terintegrasi Tailwind CSS dan animasi interaktif.",
+    stack: ["React.js", "Tailwind CSS", "Framer Motion"],
+    liveUrl: "https://bolt-z-laundry.netlify.app",
+    statusText: "Live di Netlify"
+  },
+  {
+    id: "bptrans",
+    category: "webapp",
+    badge: "Freelance Client Project",
+    title: "BP Trans Official Web",
+    subtitle: "Company Profile Jasa Transportasi & Carter Gresik",
+    image: "/images/projects/bptrans.jpg",
+    problem: "Jasa antar-jemput dan carter armada membutuhkan portal pemesanan online cepat yang mudah diakses dari smartphone maupun desktop.",
+    solution: "Website responsif berbasis Vite & React dengan galeri armada mobil, rute perjalanan, tarif transparan, dan booking terintegrasi WhatsApp 24 jam.",
+    features: [
+      "Website resmi jasa antar-jemput dan carter di Gresik",
+      "Menampilkan layanan, galeri armada, dan lokasi dengan navigasi responsif",
+      "Dibangun di atas Vite untuk performa rendering ultra cepat",
+      "Tombol booking langsung terhubung ke customer service via WhatsApp"
+    ],
+    role: "Desain UI/UX responsif dan implementasi komponen berbasis React dan Vite.",
+    stack: ["React.js", "Tailwind CSS", "Vite"],
+    liveUrl: "https://bptrans.netlify.app",
+    statusText: "Live di Netlify"
+  },
+  {
+    id: "evaduta",
+    category: "webapp",
+    badge: "Freelance Client Project",
+    title: "PT. Eva Duta Perkasa",
+    subtitle: "Landing Page B2B Solusi Kimia Industri Nasional",
+    image: "/images/projects/evaduta.jpg",
+    problem: "Perusahaan kimia industri dengan pengalaman 25+ tahun membutuhkan landing page korporat untuk memamerkan sertifikasi ISO 9001 dan katalog produk.",
+    solution: "Arsitektur frontend modular React dengan performa cepat, visualisasi metrik kepercayaan klien (500+ mitra), dan kalkulator kebutuhan formulasi kimia.",
+    features: [
+      "Landing page B2B untuk perusahaan solusi kimia industri terkemuka",
+      "Menonjolkan sertifikasi ISO 9001 dan statistik kepercayaan (500+ klien, 25+ tahun beroperasi)",
+      "Komponen React modular dan reusable dengan optimasi SEO dasar"
+    ],
+    role: "Pengembangan landing page profesional B2B dengan CSS Modules dan performa tinggi.",
+    stack: ["React.js", "CSS Modules", "Responsive UI"],
+    liveUrl: "https://evadutaperkasa.netlify.app",
+    statusText: "Live di Netlify"
+  },
+  {
+    id: "weather",
+    category: "webapp",
+    badge: "Personal Project",
+    title: "El Mini Weather App",
+    subtitle: "Aplikasi Cuaca Realtime Interaktif",
+    image: "/images/projects/weather.png",
+    problem: "Eksplorasi manajemen state reaktif, pemrosesan data API pihak ketiga secara asynchronous, dan visualisasi grafik cuaca secara instan.",
+    solution: "Papan dashboard cuaca realtime dengan OpenWeather API, penentuan lokasi otomatis, grafik suhu per jam interaktif, dan transisi visual mulus.",
+    features: [
+      "Memanfaatkan React Hooks (useState, useEffect) untuk data realtime OpenWeather API",
+      "Menampilkan suhu, kondisi cuaca, dan grafik prakiraan per jam interaktif",
+      "Fitur loading state dan feedback status koneksi yang halus"
+    ],
+    role: "Perancangan UI cuaca modern, konsumsi REST API cuaca global, dan pengelolaan state reaktif.",
+    stack: ["React.js", "OpenWeather API", "Axios"],
+    liveUrl: "https://elminiweather.netlify.app",
+    statusText: "Live di Netlify"
+  }
+];
+---
+
+<section class="projects-section" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">PORTOFOLIO TERPILIH</div>
+      <h2 class="section-title">Hasil Karya & Proyek Nyata</h2>
+      <p class="section-subtitle">
+        Dokumentasi rekayasa perangkat lunak mulai dari sistem enterprise, tugas akhir akademik, hingga platform web klien komersial.
+      </p>
+
+      <!-- Category Filter Tabs -->
+      <div class="filter-tabs font-mono">
+        <button class="filter-btn active" data-filter="all">SEMUA [{projects.length}]</button>
+        <button class="filter-btn" data-filter="webapp">WEB APPS & REACT</button>
+        <button class="filter-btn" data-filter="enterprise">SISTEM LARAVEL / SKRIPSI</button>
+        <button class="filter-btn" data-filter="client">PROYEK KLIEN FREELANCE</button>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid" id="projectsGrid">
+      {projects.map((item) => (
+        <div class="project-card" data-category={item.category} data-id={item.id}>
+          <div class="project-thumbnail-wrapper">
+            <img 
+              src={item.image} 
+              alt={item.title} 
+              class="project-thumbnail"
+              loading="lazy"
+            />
+            <div class="badge-overlay font-mono">{item.badge}</div>
+          </div>
+
+          <div class="project-details">
+            <div class="project-header">
+              <h3 class="project-title">{item.title}</h3>
+              <p class="project-subtitle">{item.subtitle}</p>
+            </div>
+
+            <div class="project-summary">
+              <div class="summary-item">
+                <span class="summary-label font-mono">// TANTANGAN</span>
+                <p class="summary-text">{item.problem}</p>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label font-mono">// SOLUSI & IMPLEMENTASI</span>
+                <p class="summary-text">{item.solution}</p>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <div class="stack-list font-mono">
+                {item.stack.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+
+              <div class="project-actions">
+                <button class="btn-detail font-mono" data-open-modal={item.id}>
+                  [RINCIAN PROYEK] &rarr;
+                </button>
+
+                {item.liveUrl ? (
+                  <a href={item.liveUrl} target="_blank" rel="noopener noreferrer" class="btn-demo font-mono">
+                    <span>LIVE DEMO</span>
+                    <span>&nearr;</span>
+                  </a>
+                ) : (
+                  <span class="project-meta-status font-mono">
+                    [{item.statusText}]
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Project Detail Modal -->
+  <div class="modal-overlay" id="projectModal" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close font-mono" id="modalClose" aria-label="Tutup Dialog">
+        [TUTUP &times;]
+      </button>
+
+      <div class="modal-content" id="modalContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Embedded Project Data for Modal JS -->
+<script define:vars={{ projects }}>
+  window.__PROJECTS_DATA__ = projects;
+</script>
+
+<style>
+  .projects-section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .filter-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+  }
+
+  .filter-btn.active {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border-color: var(--btn-primary-bg);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 28px;
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .project-thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    overflow: hidden;
+  }
+
+  .project-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover .project-thumbnail {
+    transform: scale(1.04);
+  }
+
+  .badge-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+  }
+
+  .project-details {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .project-header {
+    margin-bottom: 14px;
+  }
+
+  .project-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  .project-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .project-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    background: var(--bg-secondary);
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+  }
+
+  .summary-item {
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .summary-label {
+    display: block;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+  }
+
+  .summary-text {
+    color: var(--text-secondary);
+  }
+
+  .project-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-tag {
+    font-size: 0.72rem;
+    border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    padding: 2px 7px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+  }
+
+  .project-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .btn-detail {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition);
+  }
+
+  .btn-detail:hover {
+    text-decoration: underline;
+  }
+
+  .btn-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text) !important;
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+
+  .btn-demo:hover {
+    opacity: 0.85;
+  }
+
+  .project-meta-status {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  /* Modal Styling */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    width: 100%;
+    max-width: 780px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 32px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid var(--border-light);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.76rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .modal-box {
+      padding: 20px;
+    }
+  }
+</style>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      projectCards.forEach((card) => {
+        const cardCategory = card.getAttribute('data-category');
+        if (filterValue === 'all' || cardCategory === filterValue) {
+          (card as HTMLElement).style.display = 'flex';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+
+  const modal = document.getElementById('projectModal');
+  const modalContent = document.getElementById('modalContent');
+  const modalClose = document.getElementById('modalClose');
+
+  function openProjectModal(projectId: string) {
+    const project = (window as any).__PROJECTS_DATA__?.find((p: any) => p.id === projectId);
+    if (!project || !modalContent || !modal) return;
+
+    modalContent.innerHTML = `
+      <div style="margin-bottom: 16px;">
+        <span class="font-mono" style="font-size: 0.72rem; color: var(--text-muted); border: 1px solid var(--border-light); padding: 2px 8px; border-radius: 4px;">
+          // ${project.badge}
+        </span>
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin-top: 10px; margin-bottom: 2px; letter-spacing: -0.02em;">
+          ${project.title}
+        </h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 18px;">
+          ${project.subtitle}
+        </p>
+      </div>
+
+      <div style="border-radius: 4px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border-light); max-height: 380px;">
+        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: auto; display: block;" />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px;">
+        <div style="background: var(--bg-secondary); padding: 14px; border-radius: 4px; border: 1px solid var(--border-light);">
+          <strong class="font-mono" style="color: var(--text-muted); font-size: 0.72rem; display: block; margin-bottom: 4px;">// TANTANGAN & MASALAH</strong>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">${project.problem}</p>
+        </div>
+
+        <div style="background: var(--bg-secondary); padding: 14px; border-radius: 4px; border: 1px solid var(--border-light);">
+          <strong class="font-mono" style="color: var(--text-muted); font-size: 0.72rem; display: block; margin-bottom: 6px;">// FITUR UTAMA & IMPLEMENTASI</strong>
+          <ul style="padding-left: 20px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65;">
+            ${(project.features || [project.solution]).map((f: string) => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div style="background: var(--bg-secondary); padding: 14px; border-radius: 4px; border: 1px solid var(--border-light);">
+          <strong class="font-mono" style="color: var(--text-muted); font-size: 0.72rem; display: block; margin-bottom: 4px;">// PERAN TEKNIS</strong>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">${project.role || project.solution}</p>
+        </div>
+      </div>
+
+      <div class="font-mono" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;">
+        ${project.stack.map((t: string) => `<span style="font-size: 0.74rem; background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border-light); padding: 3px 8px; border-radius: 4px;">${t}</span>`).join('')}
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 16px; flex-wrap: wrap; gap: 12px;">
+        <span class="font-mono" style="font-size: 0.8rem; color: var(--text-muted);">
+          STATUS: [${project.statusText}]
+        </span>
+
+        ${project.liveUrl ? `
+          <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="font-mono" style="display: inline-flex; align-items: center; gap: 6px; background: var(--btn-primary-bg); color: var(--btn-primary-text); text-decoration: none; padding: 8px 16px; border-radius: 4px; font-weight: 700; font-size: 0.82rem;">
+            <span>BUKA LIVE WEBSITE</span>
+            <span>&nearr;</span>
+          </a>
+        ` : ''}
+      </div>
+    `;
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-open-modal]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = btn.getAttribute('data-open-modal');
+      if (id) openProjectModal(id);
+    });
+  });
+
+  modalClose?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>

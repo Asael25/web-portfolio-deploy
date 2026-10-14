@@ -1,0 +1,207 @@
+---
+const awards = [
+  {
+    type: "GOLD MEDAL",
+    rank: "1st Place",
+    category: "Inovasi Hardware &bull; JISF Tingkat Internasional",
+    year: "2025",
+    title: "Smart Fruit Salad Box",
+    description: "Solusi teknologi tepat guna yang berfokus pada otomatisasi kontrol suhu dan kelembaban serta efisiensi penyimpanan untuk menjaga kualitas makanan segar.",
+    metrics: [
+      { label: "Kategori", val: "Hardware Innovation" },
+      { label: "Peringkat", val: "Juara 1 (Internasional)" }
+    ],
+    certificateUrl: "/certificates/jisf-gold-2025.pdf"
+  },
+  {
+    type: "SILVER MEDAL",
+    rank: "2nd Place",
+    category: "Idea Pitching &bull; TISIIF Tingkat Internasional",
+    year: "2026",
+    title: "KALORA (Kalori Otomatis Rekomendasi Adaptif)",
+    description: "Purwarupa ekosistem smart vending machine berbasis IoT & AI yang menyajikan makanan panas, dingin, dan jus segar secara terintegrasi, lengkap dengan sistem rekomendasi nutrisi real-time.",
+    metrics: [
+      { label: "Deviasi Makronutrisi", val: "< 5–7%" },
+      { label: "Proyeksi Uptime HW", val: "99,7%" }
+    ],
+    certificateUrl: "/certificates/tisiif-silver-2026.pdf"
+  }
+];
+---
+
+<section class="awards-section" id="awards">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag font-mono">// PENCAPAIAN INTERNASIONAL</div>
+      <h2 class="section-title">Penghargaan Inovasi Teknologi</h2>
+      <p class="section-subtitle">
+        Pengakuan tingkat internasional atas perancangan inovasi terpadu berbasis software, hardware, IoT, dan Artificial Intelligence.
+      </p>
+    </div>
+
+    <div class="awards-grid">
+      {awards.map((award) => (
+        <div class="award-card">
+          <div class="award-top">
+            <div class="award-badge font-mono">{award.type} &bull; {award.rank}</div>
+            <span class="award-year font-mono">[{award.year}]</span>
+          </div>
+
+          <h3 class="award-title">{award.title}</h3>
+          <p class="award-cat font-mono" set:html={award.category} />
+          <p class="award-desc">{award.description}</p>
+
+          <div class="award-metrics">
+            {award.metrics.map((m) => (
+              <div class="metric-box font-mono">
+                <span class="metric-val">{m.val}</span>
+                <span class="metric-label">{m.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="award-footer">
+            <a href={award.certificateUrl} target="_blank" rel="noopener noreferrer" class="cert-link font-mono">
+              <span>[LIHAT SERTIFIKAT RESMI PDF]</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .awards-section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+    text-align: left;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    text-align: left;
+  }
+
+  .award-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 30px;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .award-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .award-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .award-badge {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+  }
+
+  .award-year {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .award-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .award-cat {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .award-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 22px;
+  }
+
+  .award-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+    margin-bottom: 20px;
+  }
+
+  .metric-box {
+    background: var(--bg-secondary);
+    padding: 10px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+  }
+
+  .metric-val {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .metric-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .award-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .cert-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .cert-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 868px) {
+    .awards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

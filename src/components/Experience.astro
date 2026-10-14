@@ -1,0 +1,464 @@
+---
+const experiences = [
+  {
+    role: "Web Developer",
+    company: "Codevela",
+    location: "Kab. Gresik, Jawa Timur",
+    period: "Januari 2026 - Juni 2026",
+    badge: "5 Bulan",
+    description: "Merancang, mengembangkan, dan memelihara aplikasi web end-to-end (Full-Stack) menggunakan Laravel, React.js, dan Tailwind CSS. Menganalisis kebutuhan teknis dan menyusun arsitektur sistem untuk memberikan solusi digital bagi operasional bisnis klien.",
+    metrics: ["4 Klien Diselesaikan", "Full-Stack Web Development"],
+    tags: ["Laravel", "React.js", "Tailwind CSS", "MySQL"]
+  },
+  {
+    role: "Fullstack Developer Internship",
+    company: "Dinas Pekerjaan Umum Bina Marga Jawa Timur",
+    location: "Surabaya, Jawa Timur",
+    period: "Januari 2025 - Maret 2025",
+    badge: "Magang Kedinasan",
+    description: "Merancang dan mengembangkan sistem e-archive & e-inventory menggunakan Laravel dan Tailwind CSS untuk mengotomatisasi pencatatan data fisik instansi. Mengelola basis data serta melakukan debugging aplikasi web instansi.",
+    metrics: ["100% Terdigitalisasi", "80% Peningkatan Kecepatan"],
+    tags: ["Laravel", "Tailwind CSS", "MySQL", "Bootstrap"]
+  }
+];
+
+const education = {
+  degree: "S1 Teknik Informatika",
+  institution: "Universitas 17 Agustus 1945 Surabaya",
+  period: "2022 - 2026",
+  gpa: "3.62 / 4.00"
+};
+
+const certifications = [
+  {
+    title: "Junior Web Programmer",
+    issuer: "Badan Nasional Sertifikasi Profesi (BNSP), LSP UNTAG Surabaya",
+    period: "Januari 2026 - Januari 2029",
+    url: "/certificates/bnsp-programmer.pdf"
+  },
+  {
+    title: "TOEFL Certification",
+    issuer: "Central Course",
+    period: "Mei 2026 - Mei 2028",
+    url: "/certificates/toefl-cert.pdf"
+  }
+];
+
+const trainings = [
+  {
+    title: "Maju Bareng AI: AI Productivity & API Integration for Developers",
+    provider: "Hacktiv8 Indonesia",
+    date: "Apr 2026",
+    url: "/certificates/hacktiv8-ai.pdf"
+  },
+  {
+    title: "Intro to Data Analytics",
+    provider: "RevoU",
+    date: "Sep 2024",
+    url: "/certificates/revou-data-analytics.pdf"
+  },
+  {
+    title: "Memulai Dasar Pemrograman untuk Menjadi Pengembang Software",
+    provider: "Dicoding Indonesia",
+    date: "Jul 2023",
+    url: "/certificates/dicoding-programming.pdf"
+  }
+];
+---
+
+<section class="experience-section" id="experience">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag font-mono">// PENGALAMAN & PENDIDIKAN</div>
+      <h2 class="section-title">Riwayat Profesional & Akademik</h2>
+      <p class="section-subtitle">
+        Perjalanan karier di dunia pengembangan perangkat lunak, didukung dasar akademis dan sertifikasi kompetensi resmi.
+      </p>
+    </div>
+
+    <div class="experience-grid">
+      <!-- Left Column: Work Experience -->
+      <div class="timeline-column">
+        <h3 class="col-title font-mono">// RIWAYAT PENGALAMAN KERJA</h3>
+
+        <div class="timeline-items">
+          {experiences.map((exp) => (
+            <div class="timeline-card">
+              <div class="exp-top">
+                <span class="exp-period font-mono">{exp.period}</span>
+                <span class="exp-badge font-mono">{exp.badge}</span>
+              </div>
+              <h4 class="exp-role">{exp.role}</h4>
+              <div class="exp-company">
+                {exp.company} <span class="loc">({exp.location})</span>
+              </div>
+              <p class="exp-desc">{exp.description}</p>
+              
+              <div class="exp-metrics">
+                {exp.metrics.map((m) => (
+                  <span class="metric-tag font-mono">[✓] {m}</span>
+                ))}
+              </div>
+
+              <div class="exp-tags font-mono">
+                {exp.tags.map((t) => (
+                  <span class="tech-pill">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Column: Education & Certifications -->
+      <div class="academic-column">
+        <h3 class="col-title font-mono">// PENDIDIKAN & SERTIFIKASI</h3>
+
+        <!-- Formal Education -->
+        <div class="edu-card">
+          <div class="edu-header">
+            <div>
+              <span class="edu-meta font-mono">S1 PENDIDIKAN FORMAL</span>
+              <h4 class="edu-title">{education.degree}</h4>
+              <p class="edu-school">{education.institution}</p>
+              <span class="edu-years font-mono">{education.period}</span>
+            </div>
+            <div class="edu-gpa">
+              <span class="gpa-num font-mono">{education.gpa}</span>
+              <span class="gpa-txt font-mono">IPK KELULUSAN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="cert-box">
+          <div class="sub-label font-mono">SERTIFIKASI KOMPETENSI RESMI</div>
+          <div class="cert-list">
+            {certifications.map((c) => (
+              <div class="cert-item">
+                <div class="cert-info">
+                  <span class="cert-name">{c.title}</span>
+                  <span class="cert-meta">{c.issuer} ({c.period})</span>
+                </div>
+                <a href={c.url} target="_blank" rel="noopener noreferrer" class="cert-link font-mono">
+                  [LIHAT PDF]
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Trainings -->
+        <div class="trainings-box">
+          <div class="sub-label font-mono">PELATIHAN & WORKSHOP</div>
+          <div class="training-list">
+            {trainings.map((t) => (
+              <div class="training-row">
+                <span class="bullet font-mono">&gt;</span>
+                <div class="training-text">
+                  <a href={t.url} target="_blank" rel="noopener noreferrer" class="training-anchor">
+                    <span class="t-title">{t.title}</span>
+                    <span class="t-meta"> &bull; {t.provider} ({t.date})</span>
+                    <span class="t-link font-mono">[PDF]</span>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-header {
+    margin-bottom: 48px;
+    text-align: left;
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    text-align: left;
+  }
+
+  .col-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .timeline-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    transition: var(--transition);
+    text-align: left;
+  }
+
+  .timeline-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .exp-period {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .exp-badge {
+    font-size: 0.72rem;
+    border: 1px solid var(--border-light);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+  }
+
+  .exp-role {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-company {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  .loc {
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .exp-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .exp-metrics {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .metric-tag {
+    font-size: 0.76rem;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+  }
+
+  .exp-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tech-pill {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  /* Academic Side */
+  .edu-card {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    background: var(--bg-card);
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .edu-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .edu-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .edu-school {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .edu-years {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .edu-gpa {
+    text-align: right;
+    border: 1px solid var(--border-light);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+  }
+
+  .gpa-num {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .gpa-txt {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .sub-label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  .cert-box {
+    margin-bottom: 24px;
+  }
+
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cert-item {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-card);
+  }
+
+  .cert-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cert-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .cert-meta {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  .cert-link {
+    font-size: 0.74rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .cert-link:hover {
+    text-decoration: underline;
+  }
+
+  .training-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .training-row {
+    display: flex;
+    gap: 8px;
+    font-size: 0.84rem;
+    align-items: baseline;
+  }
+
+  .bullet {
+    color: var(--text-muted);
+  }
+
+  .training-anchor {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .training-anchor:hover .t-title {
+    text-decoration: underline;
+  }
+
+  .t-title {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .t-meta {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+
+  .t-link {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-left: 6px;
+  }
+
+  @media (max-width: 968px) {
+    .experience-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>
