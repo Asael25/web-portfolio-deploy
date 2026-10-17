@@ -1,108 +1,139 @@
 ---
+// Story.astro - Galeri Rekam Jejak Kuliah, Riset & Pengalaman Industri
+const galleryItems = [
+  {
+    num: "01",
+    tag: "[01] MOMEN WISUDA",
+    sub: "SURYA ASAEL, S.Kom",
+    title: "Wisuda & Gelar Sarjana Komputer (S.Kom)",
+    desc: "Puncak perjalanan akademik di Universitas 17 Agustus 1945 Surabaya setelah menyelesaikan seluruh program studi, riset kompetisi, dan sidang skripsi.",
+    img: "/images/story/wisuda-skom.png",
+    aspect: "aspect-portrait",
+    category: "Akademik & Kelulusan"
+  },
+  {
+    num: "02",
+    tag: "[02] GOLD MEDAL JISF",
+    sub: "JAKARTA INTL SCIENCE FAIR 2025",
+    title: "Tim Juara 1 Gold Medal JISF 2025",
+    desc: "Kolaborasi riset inovasi hardware 'Smart Fruit Salad Box' bersama tim mahasiswa Teknik Informatika UNTAG Surabaya hingga meraih medali emas internasional.",
+    img: "/images/jisf-gold-team.png",
+    aspect: "aspect-landscape",
+    category: "Kompetisi Internasional"
+  },
+  {
+    num: "03",
+    tag: "[03] PUBLIKASI RESMI",
+    sub: "PRESTASI MAHASISWA &bull; UNTAG SBY",
+    title: "Publikasi Resmi Juara Gold Medal JISF",
+    desc: "Rilis poster apresiasi resmi institusi atas capaian medali emas dalam kompetisi yang diselenggarakan oleh Indonesian Young Scientist Association (IYSA).",
+    img: "/images/jisf-gold-poster.png",
+    aspect: "aspect-poster",
+    category: "Publikasi & Apresiasi"
+  },
+  {
+    num: "04",
+    tag: "[04] MAGANG KEDINASAN",
+    sub: "DINAS PU BINA MARGA JATIM",
+    title: "Meeting & Implementasi di Dinas PU Bina Marga",
+    desc: "Momen koordinasi dan evaluasi sistem web e-archive & e-inventory bersama tim pengembang dan pembimbing lapangan di kantor Dinas PU Bina Marga Jawa Timur.",
+    img: "/images/magang-bina-marga.jpg",
+    aspect: "aspect-landscape",
+    category: "Pengalaman Kerja"
+  },
+  {
+    num: "05",
+    tag: "[05] KKN MOJOKERTO",
+    sub: "DESA PAYUNGREJO &bull; LPPM",
+    title: "Pengabdian KKN di Mojokerto",
+    desc: "Keberangkatan bersama kelompok KKN menuju Desa Payungrejo, Mojokerto untuk pengabdian masyarakat dan digitalisasi inventaris logistik internal.",
+    img: "/images/story/kkn-mojokerto.jpg",
+    aspect: "aspect-portrait",
+    category: "Pengabdian Masyarakat"
+  },
+  {
+    num: "06",
+    tag: "[06] PITCHING ROOM",
+    sub: "TISIIF 2026 &bull; KALORA AI/IoT",
+    title: "Pitching Sistem Cerdas KALORA",
+    desc: "Presentasi purwarupa smart vending KALORA di hadapan dewan juri kompetisi internasional TISIIF dengan integrasi nutrisi cerdas real-time.",
+    img: "/images/story/tisiif-pitching.jpg",
+    aspect: "aspect-landscape",
+    category: "Riset & Pitching"
+  },
+  {
+    num: "07",
+    tag: "[07] PENGANUGERAHAN",
+    sub: "SILVER MEDALIST &bull; TISIIF",
+    title: "Penganugerahan Silver Medal TISIIF",
+    desc: "Penyerahan sertifikat penghargaan Silver Medal bersama delegasi UNTAG Surabaya atas keunggulan inovasi idea pitching sistem cerdas.",
+    img: "/images/story/tisiif-award.png",
+    aspect: "aspect-landscape",
+    category: "Penghargaan"
+  }
+];
 ---
 
 <section class="gallery-section" id="story">
   <div class="container">
     <div class="gallery-header">
-      <div class="section-tag font-mono">// ARSIP MAHASISWA & RISET</div>
-      <h2 class="section-title">Galeri Semasa Kuliah</h2>
+      <div class="section-tag font-mono">// ARSIP MAHASISWA, RISET & INDUSTRI</div>
+      <h2 class="section-title">Galeri Semasa Kuliah & Riset</h2>
       <p class="section-subtitle">
-        Fragmen rekam jejak semasa menempuh studi: momen wisuda sarjana, pengabdian KKN di Mojokerto, riset dan pitching kompetisi internasional, hingga penyerahan medali kejuaraan di Universitas 17 Agustus 1945 Surabaya.
+        Fragmen rekam jejak nyata: momen wisuda sarjana, kejuaraan Gold Medal JISF & Silver Medal TISIIF, implementasi sistem magang di Dinas PU Bina Marga Jatim, hingga pengabdian KKN.
       </p>
     </div>
 
-    <!-- Abstract Asymmetric Gallery (Ordered 01 to 04) -->
-    <div class="abstract-gallery">
-      <!-- 01. Centerpiece Feature: Wisuda S.Kom (Top Priority / Order 1) -->
-      <div class="gallery-item item-centerpiece">
-        <div class="centerpiece-box">
-          <img 
-            src="/images/story/wisuda-skom.png" 
-            alt="Surya Asael, S.Kom memakai toga wisuda lengkap" 
-            class="centerpiece-photo"
-            loading="lazy"
-          />
-          <div class="centerpiece-overlay">
-            <span class="photo-tag font-mono">[01] MOMEN WISUDA</span>
-            <span class="photo-sub font-mono">SURYA ASAEL, S.Kom</span>
+    <!-- Gallery Grid (Editorial Monochrome Masonry) -->
+    <div class="gallery-grid">
+      {galleryItems.map((item, index) => (
+        <div class={`gallery-card ${item.aspect} ${index === 0 ? 'card-featured' : ''}`}>
+          <div 
+            class="photo-wrapper" 
+            data-full={item.img} 
+            data-title={item.title} 
+            data-tag={item.tag}
+            role="button"
+            tabindex="0"
+            aria-label={`Buka foto ${item.title}`}
+          >
+            <img 
+              src={item.img} 
+              alt={item.title} 
+              class="gallery-img"
+              loading="lazy"
+            />
+            <div class="photo-overlay">
+              <span class="photo-tag font-mono" set:html={item.tag} />
+              <span class="photo-sub font-mono" set:html={item.sub} />
+            </div>
+            <div class="photo-zoom-hint font-mono">[KLIK UNTUK MEMPERBESAR]</div>
           </div>
-        </div>
-        <div class="item-caption font-mono">
-          <span class="cap-num">01.</span>
-          <div class="cap-body">
-            <h3 class="cap-title">Wisuda & Gelar Sarjana Komputer (S.Kom)</h3>
-            <p class="cap-desc">Puncak perjalanan akademik di Universitas 17 Agustus 1945 Surabaya setelah menyelesaikan perkuliahan, riset kompetisi, dan ujian skripsi.</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- 02. KKN Keberangkatan ke Mojokerto -->
-      <div class="gallery-item item-kkn">
-        <div class="item-visual visual-portrait">
-          <img 
-            src="/images/story/kkn-mojokerto.jpg" 
-            alt="Kelompok KKN UNTAG Surabaya menuju Desa Payungrejo Mojokerto" 
-            class="gallery-photo"
-            loading="lazy"
-          />
-          <div class="photo-overlay">
-            <span class="photo-tag font-mono">[02] KKN MOJOKERTO</span>
-            <span class="photo-sub font-mono">DESA PAYUNGREJO</span>
+          <div class="card-caption font-mono">
+            <span class="cap-num">{item.num}.</span>
+            <div class="cap-body">
+              <div class="cap-cat font-mono">// {item.category.toUpperCase()}</div>
+              <h3 class="cap-title">{item.title}</h3>
+              <p class="cap-desc">{item.desc}</p>
+            </div>
           </div>
         </div>
-        <div class="item-caption font-mono">
-          <span class="cap-num">02.</span>
-          <div class="cap-body">
-            <h3 class="cap-title">Pengabdian KKN di Mojokerto</h3>
-            <p class="cap-desc">Keberangkatan bersama kelompok KKN menuju Desa Payungrejo, Mojokerto untuk pengabdian masyarakat.</p>
-          </div>
-        </div>
-      </div>
+      ))}
+    </div>
+  </div>
 
-      <!-- 03. Pitching KALORA -->
-      <div class="gallery-item item-pitching">
-        <div class="item-visual visual-landscape">
-          <img 
-            src="/images/story/tisiif-pitching.jpg" 
-            alt="Presentasi Pitching KALORA di TISIIF" 
-            class="gallery-photo"
-            loading="lazy"
-          />
-          <div class="photo-overlay">
-            <span class="photo-tag font-mono">[03] PITCHING ROOM</span>
-            <span class="photo-sub font-mono">TISIIF 2026 &bull; KALORA AI/IoT</span>
-          </div>
-        </div>
-        <div class="item-caption font-mono">
-          <span class="cap-num">03.</span>
-          <div class="cap-body">
-            <h3 class="cap-title">Pitching Sistem Cerdas KALORA</h3>
-            <p class="cap-desc">Presentasi purwarupa smart vending KALORA di hadapan dewan juri kompetisi inovasi internasional TISIIF.</p>
-          </div>
-        </div>
+  <!-- Lightbox Modal for Full-res Photo Inspection -->
+  <div id="galleryModal" class="gallery-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Tutup Pratinjau Foto">&times;</button>
+      <div class="modal-image-box">
+        <img id="modalImg" src="" alt="Detail Foto Galeri" />
       </div>
-
-      <!-- 04. Award Ceremony TISIIF -->
-      <div class="gallery-item item-award">
-        <div class="item-visual visual-award">
-          <img 
-            src="/images/story/tisiif-award.png" 
-            alt="Penyerahan Sertifikat Juara Silver Medal TISIIF" 
-            class="gallery-photo"
-            loading="lazy"
-          />
-          <div class="photo-overlay">
-            <span class="photo-tag font-mono">[04] PENGANUGERAHAN</span>
-            <span class="photo-sub font-mono">SILVER MEDALIST &bull; TISIIF</span>
-          </div>
-        </div>
-        <div class="item-caption font-mono">
-          <span class="cap-num">04.</span>
-          <div class="cap-body">
-            <h3 class="cap-title">Penganugerahan Silver Medal</h3>
-            <p class="cap-desc">Penyerahan sertifikat penghargaan Silver Medal bersama tim delegasi UNTAG Surabaya pada panggung kejuaraan.</p>
-          </div>
-        </div>
+      <div class="modal-meta font-mono">
+        <span id="modalTag" class="modal-tag"></span>
+        <h4 id="modalTitle" class="modal-title"></h4>
       </div>
     </div>
   </div>
@@ -110,133 +141,135 @@
 
 <style>
   .gallery-section {
-    padding: 90px 0;
+    padding: 100px 0;
     border-bottom: 1px solid var(--border-light);
     position: relative;
-    overflow: hidden;
+    background: var(--bg-primary);
   }
 
   .gallery-header {
-    margin-bottom: 44px;
+    margin-bottom: 48px;
     text-align: left;
   }
 
-  /* Abstract Asymmetric Grid with 01 as primary centerpiece */
-  .abstract-gallery {
+  /* Grid Layout: Responsive 3-Column Editorial Grid */
+  .gallery-grid {
     display: grid;
-    grid-template-columns: 1fr 1.35fr 1fr;
-    grid-template-areas: 
-      "kkn center pitching"
-      "kkn center award";
-    gap: 32px 28px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 28px;
     align-items: start;
-    position: relative;
   }
 
-  .gallery-item {
+  .gallery-card {
     display: flex;
     flex-direction: column;
-    position: relative;
     text-align: left;
     transition: var(--transition);
   }
 
-  .item-centerpiece {
-    grid-area: center;
-    z-index: 2;
-  }
-
-  .item-kkn {
-    grid-area: kkn;
-  }
-
-  .item-pitching {
-    grid-area: pitching;
-  }
-
-  .item-award {
-    grid-area: award;
-  }
-
-  /* Photo Containers */
-  .item-visual,
-  .centerpiece-box {
+  /* Photo Wrapper */
+  .photo-wrapper {
     position: relative;
     border-radius: var(--radius-sm);
     overflow: hidden;
     border: 1px solid var(--border-light);
     background: var(--bg-secondary);
     transition: var(--transition);
+    cursor: zoom-in;
     width: 100%;
   }
 
-  .visual-portrait {
+  .aspect-portrait {
     aspect-ratio: 3 / 4;
   }
 
-  .visual-landscape {
-    aspect-ratio: 16 / 10;
-  }
-
-  .visual-award {
-    aspect-ratio: 4 / 3;
-  }
-
-  .centerpiece-box {
+  .aspect-poster {
     aspect-ratio: 3 / 4;
   }
 
-  .centerpiece-photo,
-  .gallery-photo {
+  .aspect-landscape {
+    aspect-ratio: 16 / 11;
+  }
+
+  .gallery-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center center;
     display: block;
-    transition: transform 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .centerpiece-box:hover .centerpiece-photo,
-  .item-visual:hover .gallery-photo {
+  /* Photo aspect fit overrides */
+  .aspect-poster .gallery-img {
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .photo-wrapper:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .photo-wrapper:hover .gallery-img {
     transform: scale(1.03);
   }
 
-  .centerpiece-box:hover,
-  .item-visual:hover {
-    border-color: var(--border-strong);
-  }
-
-  .centerpiece-overlay,
   .photo-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 12px 14px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0) 100%);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     color: #ffffff;
     font-size: 0.7rem;
     pointer-events: none;
+    z-index: 2;
   }
 
   .photo-tag {
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
   }
 
   .photo-sub {
-    color: #d4d4d8;
-    font-size: 0.68rem;
+    color: #e4e4e7;
+    font-size: 0.66rem;
   }
 
-  /* Captions (Clean Left Aligned Typography) */
-  .item-caption {
-    margin-top: 12px;
+  .photo-zoom-hint {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: var(--transition);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .photo-wrapper:hover .photo-zoom-hint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Captions */
+  .card-caption {
+    margin-top: 14px;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     align-items: flex-start;
     text-align: left;
   }
@@ -244,8 +277,8 @@
   .cap-num {
     color: var(--text-muted);
     font-weight: 700;
-    font-size: 0.82rem;
-    line-height: 1.4;
+    font-size: 0.88rem;
+    line-height: 1.35;
   }
 
   .cap-body {
@@ -254,8 +287,14 @@
     gap: 4px;
   }
 
+  .cap-cat {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
   .cap-title {
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.35;
@@ -263,27 +302,220 @@
   }
 
   .cap-desc {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
     line-height: 1.55;
   }
 
-  /* Responsive Mobile/Tablet Order */
-  @media (max-width: 992px) {
-    .abstract-gallery {
+  /* Lightbox Modal */
+  .gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+  }
+
+  .gallery-modal.active {
+    display: flex;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 900px;
+    max-height: 92vh;
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+    animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes modalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 24px;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: var(--transition);
+  }
+
+  .modal-close:hover {
+    background: #000000;
+    transform: scale(1.1);
+  }
+
+  .modal-image-box {
+    width: 100%;
+    max-height: 72vh;
+    background: #09090b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #modalImg {
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .modal-meta {
+    padding: 18px 24px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+  }
+
+  .modal-tag {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .modal-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .gallery-grid {
       grid-template-columns: 1fr;
-      grid-template-areas: 
-        "center"
-        "kkn"
-        "pitching"
-        "award";
       gap: 36px;
     }
 
-    .gallery-item {
-      max-width: 520px;
-      margin: 0 auto;
-      width: 100%;
+    .gallery-card {
+      max-width: 100%;
+    }
+
+    .modal-content {
+      max-height: 85vh;
+    }
+
+    .modal-image-box {
+      max-height: 60vh;
     }
   }
 </style>
+
+<script>
+  function initGalleryLightbox() {
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImg') as HTMLImageElement;
+    const modalTag = document.getElementById('modalTag');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalClose = document.getElementById('modalClose');
+    const backdrop = document.getElementById('modalBackdrop');
+
+    if (!modal || !modalImg || !modalTag || !modalTitle) return;
+
+    function openModal(imgSrc: string, tag: string, title: string) {
+      modalImg.src = imgSrc;
+      modalTag.innerHTML = tag;
+      modalTitle.textContent = title;
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      modalImg.src = '';
+    }
+
+    document.querySelectorAll('.photo-wrapper').forEach((wrapper) => {
+      wrapper.addEventListener('click', () => {
+        const full = wrapper.getAttribute('data-full') || '';
+        const tag = wrapper.getAttribute('data-tag') || '';
+        const title = wrapper.getAttribute('data-title') || '';
+        openModal(full, tag, title);
+      });
+
+      wrapper.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault();
+          const full = wrapper.getAttribute('data-full') || '';
+          const tag = wrapper.getAttribute('data-tag') || '';
+          const title = wrapper.getAttribute('data-title') || '';
+          openModal(full, tag, title);
+        }
+      });
+    });
+
+    modalClose?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGalleryLightbox);
+  } else {
+    initGalleryLightbox();
+  }
+</script>
