@@ -80,8 +80,15 @@ import Hero3D from './Hero3D.astro';
     align-items: center;
   }
 
-  .hero-content,
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    pointer-events: auto;
+  }
+
   .hero-visual {
+    position: relative;
+    z-index: 3;
     pointer-events: auto;
   }
 

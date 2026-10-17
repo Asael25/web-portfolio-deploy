@@ -20,6 +20,17 @@
     overflow: hidden;
     pointer-events: auto;
     z-index: 1;
+    /* Soft gradient mask: completely clear over left text column, visible on right behind photo */
+    mask-image: linear-gradient(to right, transparent 0%, transparent 32%, rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 1) 70%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 32%, rgba(0, 0, 0, 0.3) 48%, rgba(0, 0, 0, 1) 70%);
+  }
+
+  @media (max-width: 968px) {
+    .hero-3d-container {
+      /* On mobile: keep 3D subtle at the top behind photo, completely clear at bottom where text is */
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 28%, transparent 52%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 28%, transparent 52%);
+    }
   }
 
   #hero3dCanvas {
@@ -120,14 +131,18 @@
     function getPalette() {
       const dark = isDark();
       return {
+        // Ultra-soft, delicate wireframes (whisper thin, never obscuring text)
         outerWireframe: dark ? 0xffffff : 0x18181b,
-        outerOpacity: dark ? 0.22 : 0.16,
-        innerCore: dark ? 0xe4e4e7 : 0x27272a,
-        innerOpacity: dark ? 0.45 : 0.35,
-        ringPrimary: dark ? 0xd4d4d8 : 0x3f3f46,
-        ringSecondary: dark ? 0x71717a : 0xa1a1aa,
-        particleColor: dark ? 0xffffff : 0x09090b,
-        pointSize: dark ? 0.045 : 0.04,
+        outerOpacity: dark ? 0.07 : 0.05,
+        innerCore: dark ? 0xd4d4d8 : 0x27272a,
+        innerOpacity: dark ? 0.11 : 0.07,
+        ringPrimary: dark ? 0xa1a1aa : 0x52525b,
+        ringPrimaryOpacity: dark ? 0.07 : 0.05,
+        ringSecondary: dark ? 0x71717a : 0x71717a,
+        ringSecondaryOpacity: dark ? 0.05 : 0.04,
+        particleColor: dark ? 0xd4d4d8 : 0x52525b,
+        particleOpacity: dark ? 0.16 : 0.12,
+        pointSize: dark ? 0.022 : 0.018,
       };
     }
 
@@ -137,20 +152,20 @@
     const rootGroup = new THREE.Group();
     scene.add(rootGroup);
 
-    // Dynamic positioning offset (positions 3D core perfectly behind/around the portrait)
+    // Dynamic positioning offset (positions 3D core strictly behind the portrait)
     function updateGroupPosition() {
       if (window.innerWidth >= 1200) {
-        rootGroup.position.x = 2.4;
+        rootGroup.position.x = 2.65;
         rootGroup.position.y = 0.0;
-        rootGroup.scale.set(1.0, 1.0, 1.0);
+        rootGroup.scale.set(0.95, 0.95, 0.95);
       } else if (window.innerWidth >= 968) {
-        rootGroup.position.x = 1.85;
+        rootGroup.position.x = 2.1;
         rootGroup.position.y = 0.0;
-        rootGroup.scale.set(0.9, 0.9, 0.9);
+        rootGroup.scale.set(0.85, 0.85, 0.85);
       } else {
         rootGroup.position.x = 0;
-        rootGroup.position.y = 0.7;
-        rootGroup.scale.set(0.7, 0.7, 0.7);
+        rootGroup.position.y = 0.8;
+        rootGroup.scale.set(0.65, 0.65, 0.65);
       }
     }
     updateGroupPosition();
@@ -177,36 +192,36 @@
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
     rootGroup.add(innerMesh);
 
-    // C. Gyroscope Orbit Rings (Torus)
-    const ring1Geo = new THREE.TorusGeometry(2.5, 0.015, 8, 80);
+    // C. Gyroscope Orbit Rings (Torus) - Hairline thin rings
+    const ring1Geo = new THREE.TorusGeometry(2.3, 0.006, 6, 80);
     const ring1Mat = new THREE.MeshBasicMaterial({
       color: palette.ringPrimary,
       transparent: true,
-      opacity: 0.35,
+      opacity: palette.ringPrimaryOpacity,
     });
     const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
     ring1.rotation.x = Math.PI / 3;
     ring1.rotation.y = Math.PI / 6;
     rootGroup.add(ring1);
 
-    const ring2Geo = new THREE.TorusGeometry(2.8, 0.01, 8, 80);
+    const ring2Geo = new THREE.TorusGeometry(2.6, 0.005, 6, 80);
     const ring2Mat = new THREE.MeshBasicMaterial({
       color: palette.ringSecondary,
       transparent: true,
-      opacity: 0.25,
+      opacity: palette.ringSecondaryOpacity,
     });
     const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
     ring2.rotation.x = -Math.PI / 4;
     ring2.rotation.z = Math.PI / 4;
     rootGroup.add(ring2);
 
-    // D. Orbiting Data Particles
-    const particleCount = 90;
+    // D. Orbiting Data Particles - Tightly clustered around 3D core
+    const particleCount = 55;
     const particleGeo = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount; i++) {
-      const radius = 2.2 + Math.random() * 1.5;
+      const radius = 1.5 + Math.random() * 0.9;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
 
@@ -224,7 +239,7 @@
       color: palette.particleColor,
       size: palette.pointSize,
       transparent: true,
-      opacity: 0.7,
+      opacity: palette.particleOpacity,
     });
     const particles = new THREE.Points(particleGeo, particleMat);
     rootGroup.add(particles);
@@ -237,8 +252,11 @@
       innerMat.color.setHex(palette.innerCore);
       innerMat.opacity = palette.innerOpacity;
       ring1Mat.color.setHex(palette.ringPrimary);
+      ring1Mat.opacity = palette.ringPrimaryOpacity;
       ring2Mat.color.setHex(palette.ringSecondary);
+      ring2Mat.opacity = palette.ringSecondaryOpacity;
       particleMat.color.setHex(palette.particleColor);
+      particleMat.opacity = palette.particleOpacity;
       particleMat.size = palette.pointSize;
     }
 
