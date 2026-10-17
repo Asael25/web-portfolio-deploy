@@ -81,18 +81,20 @@
     function getPalette() {
       const dark = isDark();
       return {
-        // Ultra-soft, delicate wireframes (whisper thin, never obscuring text)
+        // Delicate wireframes and rings
         outerWireframe: dark ? 0xffffff : 0x18181b,
-        outerOpacity: dark ? 0.07 : 0.05,
+        outerOpacity: dark ? 0.10 : 0.08,
         innerCore: dark ? 0xd4d4d8 : 0x27272a,
-        innerOpacity: dark ? 0.11 : 0.07,
+        innerOpacity: dark ? 0.15 : 0.11,
         ringPrimary: dark ? 0xa1a1aa : 0x52525b,
-        ringPrimaryOpacity: dark ? 0.07 : 0.05,
+        ringPrimaryOpacity: dark ? 0.10 : 0.08,
         ringSecondary: dark ? 0x71717a : 0x71717a,
-        ringSecondaryOpacity: dark ? 0.05 : 0.04,
-        particleColor: dark ? 0xd4d4d8 : 0x52525b,
-        particleOpacity: dark ? 0.16 : 0.12,
-        pointSize: dark ? 0.022 : 0.018,
+        ringSecondaryOpacity: dark ? 0.08 : 0.06,
+
+        // Partikel (ditebalkan setengah lagi agar lebih terlihat cantik & proporsional)
+        particleColor: dark ? 0xe4e4e7 : 0x3f3f46,
+        particleOpacity: dark ? 0.28 : 0.22,
+        pointSize: dark ? 0.028 : 0.024,
       };
     }
 
