@@ -1,5 +1,6 @@
 ---
 import Hero3D from './Hero3D.astro';
+import ParticlePortrait from './ParticlePortrait.astro';
 ---
 
 <section class="hero-section" id="hero">
@@ -50,14 +51,9 @@ import Hero3D from './Hero3D.astro';
       </div>
     </div>
 
-    <!-- Right Side: Hero Visual (Frameless, HD, No Card Wrapper) -->
+    <!-- Right Side: Hero Visual - Interactive Stippled Particle Portrait (PT Amman Style) -->
     <div class="hero-visual">
-      <img 
-        src="/images/surya-hero-clean.png" 
-        alt="Surya Asael, S.Kom - Web & Software Developer" 
-        class="hero-img"
-        loading="eager"
-      />
+      <ParticlePortrait />
     </div>
   </div>
 </section>
