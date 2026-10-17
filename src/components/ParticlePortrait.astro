@@ -1,13 +1,9 @@
 ---
-// ParticlePortrait.astro - Interactive 3D Point Cloud Stippled Portrait (PT Amman Style)
+// ParticlePortrait.astro - High Performance Stippled Particle Portrait (PT Amman Style)
 ---
 
 <div class="particle-portrait-wrapper" id="portraitWrapper">
   <canvas id="particlePortraitCanvas" class="particle-canvas"></canvas>
-  <div class="portrait-hint font-mono">
-    <span class="hint-pulse"></span>
-    <span>ARAHKAN KURSOR / SENTUH UNTUK INTERAKSI PARTIKEL</span>
-  </div>
 </div>
 
 <style>
@@ -31,43 +27,11 @@
     cursor: crosshair;
     filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.08));
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.5s ease;
   }
 
   .particle-canvas.ready {
     opacity: 1;
-  }
-
-  .portrait-hint {
-    margin-top: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.64rem;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-    opacity: 0.75;
-    pointer-events: none;
-    transition: var(--transition);
-  }
-
-  .hint-pulse {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: currentColor;
-    animation: hintPulse 2s infinite ease-in-out;
-  }
-
-  @keyframes hintPulse {
-    0%, 100% {
-      opacity: 0.4;
-      transform: scale(0.9);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.3);
-    }
   }
 
   @media (max-width: 968px) {
@@ -88,10 +52,6 @@
     .particle-canvas {
       max-height: 320px;
     }
-
-    .portrait-hint {
-      font-size: 0.58rem;
-    }
   }
 </style>
 
@@ -104,9 +64,6 @@
     vx: number;
     vy: number;
     radius: number;
-    density: number;
-    ease: number;
-    friction: number;
     luminance: number;
   }
 
@@ -118,7 +75,6 @@
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    // Load source image
     const img = new Image();
     img.src = '/images/surya-hero-clean.png';
     img.crossOrigin = 'anonymous';
@@ -126,12 +82,12 @@
     let particles: Particle[] = [];
     let isInitialized = false;
     let isVisible = true;
-    let animId: number;
+    let isRunning = false;
 
     const pointer = {
       x: -9999,
       y: -9999,
-      radius: 65,
+      radius: 60,
       isActive: false,
     };
 
@@ -140,7 +96,6 @@
     }
 
     img.onload = () => {
-      // 1. Establish canvas dimensions based on image aspect ratio
       const naturalW = img.naturalWidth;
       const naturalH = img.naturalHeight;
       const targetW = 340;
@@ -149,7 +104,6 @@
       canvas.width = targetW;
       canvas.height = targetH;
 
-      // 2. Offscreen sampling canvas
       const offscreen = document.createElement('canvas');
       offscreen.width = targetW;
       offscreen.height = targetH;
@@ -159,46 +113,36 @@
       offCtx.drawImage(img, 0, 0, targetW, targetH);
       const imgData = offCtx.getImageData(0, 0, targetW, targetH).data;
 
-      // 3. Generate stippled particles (PT Amman Style)
       particles = [];
-      const step = 2; // sample grid step
+      const step = 2; // Optimal high resolution with lightweight particle count (~8,500 points)
 
       for (let y = 0; y < targetH; y += step) {
         for (let x = 0; x < targetW; x += step) {
           const index = (y * targetW + x) * 4;
           const alpha = imgData[index + 3];
 
-          if (alpha < 45) continue; // transparent pixel
+          if (alpha < 45) continue;
 
           const r = imgData[index];
           const g = imgData[index + 1];
           const b = imgData[index + 2];
           const lum = 0.299 * r + 0.587 * g + 0.114 * b;
 
-          // Stippling probability: darker areas have denser particles
-          let density = Math.pow((255 - lum) / 255, 1.25);
-          density = Math.max(density * 1.15, 0.07);
+          let density = Math.pow((255 - lum) / 255, 1.3);
+          density = Math.max(density * 1.15, 0.08);
 
           if (Math.random() < density) {
-            // Fine organic jitter
-            const jx = x + (Math.random() - 0.5) * 1.4;
-            const jy = y + (Math.random() - 0.5) * 1.4;
-
-            // Spawn with gentle initial dispersion that magnetizes together
-            const initialScatter = 40 + Math.random() * 80;
-            const angle = Math.random() * Math.PI * 2;
+            const jx = x + (Math.random() - 0.5) * 1.2;
+            const jy = y + (Math.random() - 0.5) * 1.2;
 
             particles.push({
               homeX: jx,
               homeY: jy,
-              x: jx + Math.cos(angle) * initialScatter,
-              y: jy + Math.sin(angle) * initialScatter,
-              vx: (Math.random() - 0.5) * 2,
-              vy: (Math.random() - 0.5) * 2,
-              radius: lum > 110 ? 0.85 : 1.25,
-              density,
-              ease: 0.055 + Math.random() * 0.035,
-              friction: 0.84 + Math.random() * 0.05,
+              x: jx,
+              y: jy,
+              vx: 0,
+              vy: 0,
+              radius: lum > 110 ? 0.8 : 1.25,
               luminance: lum,
             });
           }
@@ -207,10 +151,45 @@
 
       isInitialized = true;
       canvas.classList.add('ready');
-      renderLoop();
+
+      // Initial draw
+      drawStatic();
     };
 
-    // 4. Pointer Interaction tracking
+    function drawStatic() {
+      if (!isInitialized || !ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const dark = isDark();
+      const pColorBase = dark ? '250, 250, 250' : '15, 15, 20';
+      const len = particles.length;
+
+      for (let i = 0; i < len; i++) {
+        const p = particles[i];
+        p.x = p.homeX;
+        p.y = p.homeY;
+        p.vx = 0;
+        p.vy = 0;
+
+        const alpha = dark
+          ? Math.max(0.3, ((255 - p.luminance) / 255) * 0.95)
+          : Math.max(0.4, ((255 - p.luminance) / 255) * 0.95);
+
+        ctx.fillStyle = `rgba(${pColorBase}, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Wake up loop on demand
+    function startLoop() {
+      if (!isRunning && isVisible && isInitialized) {
+        isRunning = true;
+        requestAnimationFrame(renderLoop);
+      }
+    }
+
     function updatePointerPosition(clientX: number, clientY: number) {
       const rect = canvas.getBoundingClientRect();
       const scaleX = canvas.width / rect.width;
@@ -218,6 +197,7 @@
       pointer.x = (clientX - rect.left) * scaleX;
       pointer.y = (clientY - rect.top) * scaleY;
       pointer.isActive = true;
+      startLoop();
     }
 
     canvas.addEventListener('mousemove', (e) => {
@@ -230,7 +210,6 @@
       pointer.isActive = false;
     });
 
-    // Touch support for mobile
     canvas.addEventListener(
       'touchmove',
       (e) => {
@@ -251,11 +230,12 @@
       { passive: true }
     );
 
-    // 5. Main Render Loop
+    // Ultra-lightweight Idle-Sleep Physics Loop
     function renderLoop() {
-      if (!isInitialized) return;
-      animId = requestAnimationFrame(renderLoop);
-      if (!isVisible) return;
+      if (!isInitialized || !isVisible) {
+        isRunning = false;
+        return;
+      }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -266,11 +246,11 @@
       const py = pointer.y;
 
       const len = particles.length;
+      let maxDisplacement = 0;
 
       for (let i = 0; i < len; i++) {
         const p = particles[i];
 
-        // Repel from cursor when hovering
         if (pointer.isActive) {
           const dx = px - p.x;
           const dy = py - p.y;
@@ -279,44 +259,65 @@
           if (dist < pRadius) {
             const force = (pRadius - dist) / pRadius;
             const angle = Math.atan2(dy, dx);
-            const repelStrength = 18 * force;
+            const repelStrength = 14 * force;
             p.vx -= Math.cos(angle) * repelStrength;
             p.vy -= Math.sin(angle) * repelStrength;
           }
         }
 
-        // Spring return force back to home position
         const homeDx = p.homeX - p.x;
         const homeDy = p.homeY - p.y;
-        p.vx += homeDx * p.ease;
-        p.vy += homeDy * p.ease;
+        p.vx += homeDx * 0.08;
+        p.vy += homeDy * 0.08;
 
-        // Apply friction damping
-        p.vx *= p.friction;
-        p.vy *= p.friction;
+        p.vx *= 0.82;
+        p.vy *= 0.82;
 
-        // Update positions
         p.x += p.vx;
         p.y += p.vy;
 
-        // Particle opacity based on luminance
-        let alpha = dark
-          ? Math.max(0.3, (255 - p.luminance) / 255 * 0.95)
-          : Math.max(0.4, (255 - p.luminance) / 255 * 0.95);
+        const displacement = Math.abs(homeDx) + Math.abs(homeDy) + Math.abs(p.vx) + Math.abs(p.vy);
+        if (displacement > maxDisplacement) {
+          maxDisplacement = displacement;
+        }
 
-        // Draw particle
+        const alpha = dark
+          ? Math.max(0.3, ((255 - p.luminance) / 255) * 0.95)
+          : Math.max(0.4, ((255 - p.luminance) / 255) * 0.95);
+
         ctx.fillStyle = `rgba(${pColorBase}, ${alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fill();
       }
+
+      // IDLE PAUSE: If pointer is inactive and particles have settled back to home, STOP RAF!
+      if (!pointer.isActive && maxDisplacement < 0.08) {
+        isRunning = false;
+        drawStatic(); // snap cleanly to resting home
+        return;
+      }
+
+      requestAnimationFrame(renderLoop);
     }
 
-    // 6. Pause when off-screen to preserve battery/GPU
+    // Redraw on theme toggle
+    const themeObserver = new MutationObserver(() => {
+      drawStatic();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    // Pause completely when out of viewport
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           isVisible = entry.isIntersecting;
+          if (!isVisible) {
+            isRunning = false;
+          }
         });
       },
       { threshold: 0.1 }
