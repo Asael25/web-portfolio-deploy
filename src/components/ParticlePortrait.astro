@@ -1,5 +1,6 @@
 ---
-// ParticlePortrait.astro - High Performance Stippled Particle Portrait (PT Amman Style)
+// ParticlePortrait.astro - Lightweight Static Stippled Portrait (PT Amman Style)
+// Rendered once on canvas for pristine editorial art with 0% CPU overhead while scrolling
 ---
 
 <div class="particle-portrait-wrapper" id="portraitWrapper">
@@ -24,10 +25,10 @@
     height: auto;
     max-height: 540px;
     display: block;
-    cursor: crosshair;
-    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.08));
+    cursor: default;
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.06));
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
   }
 
   .particle-canvas.ready {
@@ -56,40 +57,16 @@
 </style>
 
 <script>
-  interface Particle {
-    homeX: number;
-    homeY: number;
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    radius: number;
-    luminance: number;
-  }
-
-  function initParticlePortrait() {
+  function renderStippledPortrait() {
     const canvas = document.getElementById('particlePortraitCanvas') as HTMLCanvasElement;
-    const wrapper = document.getElementById('portraitWrapper');
-    if (!canvas || !wrapper) return;
+    if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const img = new Image();
     img.src = '/images/surya-hero-clean.png';
     img.crossOrigin = 'anonymous';
-
-    let particles: Particle[] = [];
-    let isInitialized = false;
-    let isVisible = true;
-    let isRunning = false;
-
-    const pointer = {
-      x: -9999,
-      y: -9999,
-      radius: 60,
-      isActive: false,
-    };
 
     img.onload = () => {
       const naturalW = img.naturalWidth;
@@ -109,8 +86,10 @@
       offCtx.drawImage(img, 0, 0, targetW, targetH);
       const imgData = offCtx.getImageData(0, 0, targetW, targetH).data;
 
-      particles = [];
-      const step = 2; // Optimal high resolution with lightweight particle count (~8,500 points)
+      ctx.clearRect(0, 0, targetW, targetH);
+
+      const step = 2; // High-resolution stippling point density
+      const pColorBase = '15, 15, 20'; // Pristine deep obsidian ink
 
       for (let y = 0; y < targetH; y += step) {
         for (let x = 0; x < targetW; x += step) {
@@ -130,184 +109,24 @@
           if (Math.random() < density) {
             const jx = x + (Math.random() - 0.5) * 1.2;
             const jy = y + (Math.random() - 0.5) * 1.2;
+            const radius = lum > 110 ? 0.8 : 1.25;
+            const dotAlpha = Math.max(0.4, ((255 - lum) / 255) * 0.95);
 
-            particles.push({
-              homeX: jx,
-              homeY: jy,
-              x: jx,
-              y: jy,
-              vx: 0,
-              vy: 0,
-              radius: lum > 110 ? 0.8 : 1.25,
-              luminance: lum,
-            });
+            ctx.fillStyle = `rgba(${pColorBase}, ${dotAlpha})`;
+            ctx.beginPath();
+            ctx.arc(jx, jy, radius, 0, Math.PI * 2);
+            ctx.fill();
           }
         }
       }
 
-      isInitialized = true;
       canvas.classList.add('ready');
-
-      // Initial draw
-      drawStatic();
     };
-
-    function drawStatic() {
-      if (!isInitialized || !ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const pColorBase = '15, 15, 20';
-      const len = particles.length;
-
-      for (let i = 0; i < len; i++) {
-        const p = particles[i];
-        p.x = p.homeX;
-        p.y = p.homeY;
-        p.vx = 0;
-        p.vy = 0;
-
-        const alpha = Math.max(0.4, ((255 - p.luminance) / 255) * 0.95);
-
-        ctx.fillStyle = `rgba(${pColorBase}, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Wake up loop on demand
-    function startLoop() {
-      if (!isRunning && isVisible && isInitialized) {
-        isRunning = true;
-        requestAnimationFrame(renderLoop);
-      }
-    }
-
-    function updatePointerPosition(clientX: number, clientY: number) {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      pointer.x = (clientX - rect.left) * scaleX;
-      pointer.y = (clientY - rect.top) * scaleY;
-      pointer.isActive = true;
-      startLoop();
-    }
-
-    canvas.addEventListener('mousemove', (e) => {
-      updatePointerPosition(e.clientX, e.clientY);
-    });
-
-    canvas.addEventListener('mouseleave', () => {
-      pointer.x = -9999;
-      pointer.y = -9999;
-      pointer.isActive = false;
-    });
-
-    canvas.addEventListener(
-      'touchmove',
-      (e) => {
-        if (e.touches.length > 0) {
-          updatePointerPosition(e.touches[0].clientX, e.touches[0].clientY);
-        }
-      },
-      { passive: true }
-    );
-
-    canvas.addEventListener(
-      'touchend',
-      () => {
-        pointer.x = -9999;
-        pointer.y = -9999;
-        pointer.isActive = false;
-      },
-      { passive: true }
-    );
-
-    // Ultra-lightweight Idle-Sleep Physics Loop
-    function renderLoop() {
-      if (!isInitialized || !isVisible) {
-        isRunning = false;
-        return;
-      }
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const pColorBase = '15, 15, 20';
-      const pRadius = pointer.radius;
-      const px = pointer.x;
-      const py = pointer.y;
-
-      const len = particles.length;
-      let maxDisplacement = 0;
-
-      for (let i = 0; i < len; i++) {
-        const p = particles[i];
-
-        if (pointer.isActive) {
-          const dx = px - p.x;
-          const dy = py - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < pRadius) {
-            const force = (pRadius - dist) / pRadius;
-            const angle = Math.atan2(dy, dx);
-            const repelStrength = 14 * force;
-            p.vx -= Math.cos(angle) * repelStrength;
-            p.vy -= Math.sin(angle) * repelStrength;
-          }
-        }
-
-        const homeDx = p.homeX - p.x;
-        const homeDy = p.homeY - p.y;
-        p.vx += homeDx * 0.08;
-        p.vy += homeDy * 0.08;
-
-        p.vx *= 0.82;
-        p.vy *= 0.82;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        const displacement = Math.abs(homeDx) + Math.abs(homeDy) + Math.abs(p.vx) + Math.abs(p.vy);
-        if (displacement > maxDisplacement) {
-          maxDisplacement = displacement;
-        }
-
-        const alpha = Math.max(0.4, ((255 - p.luminance) / 255) * 0.95);
-        ctx.fillStyle = `rgba(${pColorBase}, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // IDLE PAUSE: If pointer is inactive and particles have settled back to home, STOP RAF!
-      if (!pointer.isActive && maxDisplacement < 0.08) {
-        isRunning = false;
-        drawStatic(); // snap cleanly to resting home
-        return;
-      }
-
-      requestAnimationFrame(renderLoop);
-    }
-
-    // Pause completely when out of viewport
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          isVisible = entry.isIntersecting;
-          if (!isVisible) {
-            isRunning = false;
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(wrapper);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initParticlePortrait);
+    document.addEventListener('DOMContentLoaded', renderStippledPortrait);
   } else {
-    initParticlePortrait();
+    renderStippledPortrait();
   }
 </script>
