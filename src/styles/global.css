@@ -31,26 +31,7 @@
   --transition: all 0.2s ease;
 }
 
-[data-theme='dark'] {
-  /* Pure Monochrome Theme - Dark */
-  --bg-primary: #09090b;
-  --bg-secondary: #121215;
-  --bg-tertiary: #18181b;
-  --bg-card: #121215;
-  
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  
-  --border-light: #27272a;
-  --border-strong: #fafafa;
-  
-  --btn-primary-bg: #fafafa;
-  --btn-primary-text: #09090b;
-  --btn-secondary-bg: transparent;
-  --btn-secondary-text: #fafafa;
-  --btn-secondary-border: #fafafa;
-}
+
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -217,6 +198,4 @@ hr.divider {
 ::-webkit-scrollbar-thumb {
   background: #a1a1aa;
 }
-[data-theme='dark'] ::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-}
+
