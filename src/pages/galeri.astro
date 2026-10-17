@@ -1,0 +1,725 @@
+---
+// src/pages/galeri.astro - Halaman Galeri Dokumentasi Lengkap
+import '../styles/global.css';
+import 'lenis/dist/lenis.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const allGalleryItems = [
+  {
+    id: "wisuda",
+    num: "01",
+    tag: "[01] MOMEN WISUDA",
+    sub: "SURYA ASAEL, S.Kom",
+    title: "Wisuda & Gelar Sarjana Komputer (S.Kom)",
+    desc: "Momen puncak kelulusan di Universitas 17 Agustus 1945 Surabaya setelah mempertahankan skripsi sistem informasi inventaris berbasis analisis EOQ & ROP dengan predikat kelulusan tepat waktu (IPK 3.62).",
+    img: "/images/story/wisuda-skom.png",
+    aspect: "aspect-portrait",
+    category: "akademik",
+    categoryLabel: "Akademik & Kelulusan",
+    date: "2026"
+  },
+  {
+    id: "jisf-team",
+    num: "02",
+    tag: "[02] GOLD MEDAL JISF",
+    sub: "JAKARTA INTL SCIENCE FAIR 2025",
+    title: "Tim Juara 1 Gold Medal JISF 2025",
+    desc: "Kolaborasi riset inovasi hardware 'Smart Fruit Salad Box' bersama tim mahasiswa Teknik Informatika UNTAG Surabaya (Daniel Kurnia Putra, Yuslif Lazward Irchami, Surya Asael) hingga memenangkan medali emas internasional.",
+    img: "/images/jisf-gold-team.png",
+    aspect: "aspect-landscape",
+    category: "prestasi",
+    categoryLabel: "Kompetisi Internasional",
+    date: "2025"
+  },
+  {
+    id: "jisf-poster",
+    num: "03",
+    tag: "[03] PUBLIKASI RESMI",
+    sub: "PRESTASI MAHASISWA &bull; UNTAG SBY",
+    title: "Publikasi Resmi Juara Gold Medal JISF",
+    desc: "Rilis poster apresiasi resmi institusi atas capaian medali emas internasional dalam kompetisi yang diselenggarakan oleh Indonesian Young Scientist Association (IYSA) bekerja sama dengan instansi terkait.",
+    img: "/images/jisf-gold-poster.png",
+    aspect: "aspect-poster",
+    category: "prestasi",
+    categoryLabel: "Kompetisi Internasional",
+    date: "2025"
+  },
+  {
+    id: "bina-marga",
+    num: "04",
+    tag: "[04] MAGANG KEDINASAN",
+    sub: "DINAS PU BINA MARGA JATIM",
+    title: "Meeting & Implementasi di Dinas PU Bina Marga",
+    desc: "Sesi koordinasi dan evaluasi aplikasi web e-archive dan e-inventory bersama tim magang dan pembimbing lapangan. Sistem berhasil mendigitalisasi 100% dokumen fisik kedinasan dan mempercepat pencarian data hingga 80%.",
+    img: "/images/magang-bina-marga.jpg",
+    aspect: "aspect-landscape",
+    category: "industri",
+    categoryLabel: "Pengalaman Kerja & Industri",
+    date: "Januari 2025"
+  },
+  {
+    id: "kkn",
+    num: "05",
+    tag: "[05] KKN MOJOKERTO",
+    sub: "DESA PAYUNGREJO &bull; LPPM",
+    title: "Pengabdian KKN di Mojokerto",
+    desc: "Keberangkatan bersama kelompok KKN menuju Desa Payungrejo, Mojokerto. Merancang dan mendeploy aplikasi inventaris barang logistik internal untuk efisiensi operasional seluruh divisi.",
+    img: "/images/story/kkn-mojokerto.jpg",
+    aspect: "aspect-portrait",
+    category: "industri",
+    categoryLabel: "Pengabdian Masyarakat",
+    date: "Juli 2025"
+  },
+  {
+    id: "tisiif-pitching",
+    num: "06",
+    tag: "[06] PITCHING ROOM",
+    sub: "TISIIF 2026 &bull; KALORA AI/IoT",
+    title: "Pitching Sistem Cerdas KALORA di TISIIF",
+    desc: "Presentasi purwarupa sistem smart vending KALORA di hadapan dewan juri kompetisi internasional TISIIF. Menampilkan arsitektur hardware modular dan sistem kalkulasi nutrisi adaptif real-time.",
+    img: "/images/story/tisiif-pitching.jpg",
+    aspect: "aspect-landscape",
+    category: "prestasi",
+    categoryLabel: "Kompetisi Internasional",
+    date: "2026"
+  },
+  {
+    id: "tisiif-award",
+    num: "07",
+    tag: "[07] PENGANUGERAHAN",
+    sub: "SILVER MEDALIST &bull; TISIIF",
+    title: "Penganugerahan Silver Medal TISIIF",
+    desc: "Penyerahan sertifikat penghargaan Silver Medal Idea Pitching di panggung kejuaraan kompetisi inovasi internasional bersama delegasi mahasiswa UNTAG Surabaya.",
+    img: "/images/story/tisiif-award.png",
+    aspect: "aspect-landscape",
+    category: "prestasi",
+    categoryLabel: "Kompetisi Internasional",
+    date: "2026"
+  }
+];
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <title>Galeri Dokumentasi Lengkap | Surya Asael, S.Kom</title>
+    <meta name="description" content="Arsip visual lengkap rekam jejak akademik, prestasi kejuaraan inovasi hardware dan pitching internasional, hingga pengalaman kerja magang Surya Asael, S.Kom." />
+  </head>
+  <body>
+    <Navbar />
+
+    <main class="gallery-page">
+      <div class="container">
+        <!-- Navigation Breadcrumb -->
+        <div class="page-top-nav">
+          <a href="/" class="back-link font-mono">
+            <span>&larr;</span>
+            <span>Kembali ke Beranda Utama</span>
+          </a>
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+          <div class="section-tag font-mono">// ARSIP VISUAL LENGKAP</div>
+          <h1 class="page-title">Galeri Rekam Jejak & Dokumentasi</h1>
+          <p class="page-subtitle">
+            Koleksi lengkap dokumentasi nyata perjalanan studi, kejuaraan internasional, implementasi sistem kedinasan, dan momen kelulusan sarjana komputer Surya Asael di Universitas 17 Agustus 1945 Surabaya.
+          </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters font-mono">
+          <button class="filter-btn active" data-filter="all">Semua Arsip [7]</button>
+          <button class="filter-btn" data-filter="prestasi">Prestasi & Kejuaraan [3]</button>
+          <button class="filter-btn" data-filter="industri">Kerja & Magang [2]</button>
+          <button class="filter-btn" data-filter="akademik">Wisuda & Kelulusan [1]</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+          {allGalleryItems.map((item) => (
+            <div class={`gallery-item ${item.aspect}`} data-category={item.category}>
+              <div 
+                class="photo-wrapper" 
+                data-full={item.img} 
+                data-title={item.title} 
+                data-tag={item.tag}
+                role="button"
+                tabindex="0"
+                aria-label={`Buka foto ${item.title}`}
+              >
+                <img 
+                  src={item.img} 
+                  alt={item.title} 
+                  class="gallery-img"
+                  loading="lazy"
+                />
+                <div class="photo-overlay">
+                  <span class="photo-tag font-mono" set:html={item.tag} />
+                  <span class="photo-sub font-mono" set:html={item.sub} />
+                </div>
+                <div class="photo-zoom-hint font-mono">[KLIK PERBESAR]</div>
+              </div>
+
+              <div class="item-caption font-mono">
+                <span class="cap-num">{item.num}.</span>
+                <div class="cap-body">
+                  <div class="cap-meta">
+                    <span class="cap-cat font-mono">// {item.categoryLabel.toUpperCase()}</span>
+                    <span class="cap-date font-mono">[{item.date}]</span>
+                  </div>
+                  <h3 class="cap-title">{item.title}</h3>
+                  <p class="cap-desc">{item.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Bottom Return Banner -->
+        <div class="gallery-bottom-banner">
+          <div class="banner-inner">
+            <div class="banner-text">
+              <span class="banner-tag font-mono">// SIAP BERKOLABORASI</span>
+              <h3 class="banner-title">Tertarik mendiskusikan sistem atau proyek teknologi?</h3>
+            </div>
+            <a href="/#contact" class="btn btn-primary font-mono">
+              <span>Hubungi Saya &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lightbox Modal for Full-res Photo Inspection -->
+      <div id="galleryModal" class="gallery-modal" aria-hidden="true">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="modalClose" aria-label="Tutup Pratinjau Foto">&times;</button>
+          <div class="modal-image-box">
+            <img id="modalImg" src="" alt="Detail Foto Galeri" />
+          </div>
+          <div class="modal-meta font-mono">
+            <span id="modalTag" class="modal-tag"></span>
+            <h4 id="modalTitle" class="modal-title"></h4>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <Footer />
+
+    <style>
+      .gallery-page {
+        padding: 110px 0 80px;
+        min-height: 85vh;
+        background: var(--bg-primary);
+      }
+
+      .page-top-nav {
+        margin-bottom: 24px;
+        text-align: left;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.84rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 6px 14px;
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-sm);
+        background: var(--bg-secondary);
+        transition: var(--transition);
+      }
+
+      .back-link:hover {
+        color: var(--text-primary);
+        border-color: var(--border-strong);
+      }
+
+      .page-header {
+        margin-bottom: 36px;
+        text-align: left;
+      }
+
+      .page-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--text-primary);
+        margin: 10px 0 14px;
+      }
+
+      .page-subtitle {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        max-width: 820px;
+        line-height: 1.6;
+      }
+
+      /* Filter Buttons */
+      .gallery-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 40px;
+      }
+
+      .filter-btn {
+        background: transparent;
+        border: 1px solid var(--border-light);
+        padding: 8px 16px;
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .filter-btn:hover {
+        border-color: var(--border-strong);
+        color: var(--text-primary);
+      }
+
+      .filter-btn.active {
+        background: var(--btn-primary-bg);
+        color: var(--btn-primary-text);
+        border-color: var(--btn-primary-bg);
+      }
+
+      /* Gallery Grid */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 36px 28px;
+        align-items: start;
+      }
+
+      .gallery-item {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-item.hidden {
+        display: none !important;
+      }
+
+      .photo-wrapper {
+        position: relative;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        border: 1px solid var(--border-light);
+        background: var(--bg-secondary);
+        transition: var(--transition);
+        cursor: zoom-in;
+        width: 100%;
+      }
+
+      .aspect-portrait {
+        aspect-ratio: 3 / 4;
+      }
+
+      .aspect-poster {
+        aspect-ratio: 3 / 4;
+      }
+
+      .aspect-landscape {
+        aspect-ratio: 16 / 11;
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        display: block;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .aspect-poster .gallery-img {
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .photo-wrapper:hover {
+        border-color: var(--border-strong);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .photo-wrapper:hover .gallery-img {
+        transform: scale(1.03);
+      }
+
+      .photo-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 12px 14px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0) 100%);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        color: #ffffff;
+        font-size: 0.7rem;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .photo-tag {
+        font-weight: 700;
+        letter-spacing: 0.06em;
+      }
+
+      .photo-sub {
+        color: #e4e4e7;
+        font-size: 0.66rem;
+      }
+
+      .photo-zoom-hint {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        padding: 4px 8px;
+        border-radius: var(--radius-sm);
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: var(--transition);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .photo-wrapper:hover .photo-zoom-hint {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Captions */
+      .item-caption {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .cap-num {
+        color: var(--text-muted);
+        font-weight: 700;
+        font-size: 0.88rem;
+        line-height: 1.35;
+      }
+
+      .cap-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .cap-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .cap-cat {
+        font-size: 0.68rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+      }
+
+      .cap-date {
+        font-size: 0.68rem;
+        color: var(--text-muted);
+      }
+
+      .cap-title {
+        font-size: 0.94rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+      }
+
+      .cap-desc {
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.55;
+      }
+
+      /* Bottom Banner */
+      .gallery-bottom-banner {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px dashed var(--border-light);
+      }
+
+      .banner-inner {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-sm);
+        padding: 24px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .banner-text {
+        text-align: left;
+      }
+
+      .banner-tag {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+      }
+
+      .banner-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-top: 4px;
+      }
+
+      /* Lightbox Modal */
+      .gallery-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 24px;
+      }
+
+      .gallery-modal.active {
+        display: flex;
+      }
+
+      .modal-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        cursor: pointer;
+      }
+
+      .modal-content {
+        position: relative;
+        max-width: 900px;
+        max-height: 92vh;
+        width: 100%;
+        background: var(--bg-card);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+        animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: scale(0.96) translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.65);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 24px;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 20;
+        transition: var(--transition);
+      }
+
+      .modal-close:hover {
+        background: #000000;
+        transform: scale(1.1);
+      }
+
+      .modal-image-box {
+        width: 100%;
+        max-height: 72vh;
+        background: #09090b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #modalImg {
+        max-width: 100%;
+        max-height: 72vh;
+        object-fit: contain;
+        display: block;
+      }
+
+      .modal-meta {
+        padding: 18px 24px;
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        text-align: left;
+      }
+
+      .modal-tag {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+      }
+
+      .modal-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 32px 24px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+
+        .banner-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+        }
+      }
+    </style>
+
+    <script>
+      import Lenis from 'lenis';
+
+      // Initialize Lenis smooth scroll on gallery page
+      const lenis = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // Category Filtering
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filterValue = btn.getAttribute('data-filter');
+
+          galleryItems.forEach((item) => {
+            const itemCat = item.getAttribute('data-category');
+            if (filterValue === 'all' || itemCat === filterValue) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // Lightbox Modal
+      const modal = document.getElementById('galleryModal');
+      const modalImg = document.getElementById('modalImg') as HTMLImageElement;
+      const modalTag = document.getElementById('modalTag');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalClose = document.getElementById('modalClose');
+      const backdrop = document.getElementById('modalBackdrop');
+
+      function openModal(imgSrc: string, tag: string, title: string) {
+        if (!modal || !modalImg || !modalTag || !modalTitle) return;
+        modalImg.src = imgSrc;
+        modalTag.innerHTML = tag;
+        modalTitle.textContent = title;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        if (!modal || !modalImg) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        modalImg.src = '';
+      }
+
+      document.querySelectorAll('.photo-wrapper').forEach((wrapper) => {
+        wrapper.addEventListener('click', () => {
+          const full = wrapper.getAttribute('data-full') || '';
+          const tag = wrapper.getAttribute('data-tag') || '';
+          const title = wrapper.getAttribute('data-title') || '';
+          openModal(full, tag, title);
+        });
+      });
+
+      modalClose?.addEventListener('click', closeModal);
+      backdrop?.addEventListener('click', closeModal);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal?.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>

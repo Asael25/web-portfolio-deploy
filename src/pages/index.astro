@@ -73,14 +73,17 @@ import Footer from '../components/Footer.astro';
       requestAnimationFrame(raf);
 
       // Smooth scroll for internal anchor navigation
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach((anchor) => {
         anchor.addEventListener('click', (e) => {
           const href = anchor.getAttribute('href');
-          if (href && href.length > 1) {
-            const target = document.querySelector(href);
-            if (target) {
-              e.preventDefault();
-              lenis.scrollTo(target as HTMLElement, { offset: -60 });
+          if (href) {
+            const hash = href.startsWith('/#') ? href.substring(1) : href;
+            if (hash.length > 1) {
+              const target = document.querySelector(hash);
+              if (target) {
+                e.preventDefault();
+                lenis.scrollTo(target as HTMLElement, { offset: -60 });
+              }
             }
           }
         });

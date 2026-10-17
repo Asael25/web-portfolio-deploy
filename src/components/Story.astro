@@ -1,6 +1,6 @@
 ---
-// Story.astro - Galeri Rekam Jejak Kuliah, Riset & Pengalaman Industri
-const galleryItems = [
+// Story.astro - Curated Homepage Showcase (Top 3 Photos) + Button ke /galeri
+const featuredStoryItems = [
   {
     num: "01",
     tag: "[01] MOMEN WISUDA",
@@ -23,53 +23,13 @@ const galleryItems = [
   },
   {
     num: "03",
-    tag: "[03] PUBLIKASI RESMI",
-    sub: "PRESTASI MAHASISWA &bull; UNTAG SBY",
-    title: "Publikasi Resmi Juara Gold Medal JISF",
-    desc: "Rilis poster apresiasi resmi institusi atas capaian medali emas dalam kompetisi yang diselenggarakan oleh Indonesian Young Scientist Association (IYSA).",
-    img: "/images/jisf-gold-poster.png",
-    aspect: "aspect-poster",
-    category: "Publikasi & Apresiasi"
-  },
-  {
-    num: "04",
-    tag: "[04] MAGANG KEDINASAN",
+    tag: "[03] MAGANG KEDINASAN",
     sub: "DINAS PU BINA MARGA JATIM",
     title: "Meeting & Implementasi di Dinas PU Bina Marga",
     desc: "Momen koordinasi dan evaluasi sistem web e-archive & e-inventory bersama tim pengembang dan pembimbing lapangan di kantor Dinas PU Bina Marga Jawa Timur.",
     img: "/images/magang-bina-marga.jpg",
     aspect: "aspect-landscape",
     category: "Pengalaman Kerja"
-  },
-  {
-    num: "05",
-    tag: "[05] KKN MOJOKERTO",
-    sub: "DESA PAYUNGREJO &bull; LPPM",
-    title: "Pengabdian KKN di Mojokerto",
-    desc: "Keberangkatan bersama kelompok KKN menuju Desa Payungrejo, Mojokerto untuk pengabdian masyarakat dan digitalisasi inventaris logistik internal.",
-    img: "/images/story/kkn-mojokerto.jpg",
-    aspect: "aspect-portrait",
-    category: "Pengabdian Masyarakat"
-  },
-  {
-    num: "06",
-    tag: "[06] PITCHING ROOM",
-    sub: "TISIIF 2026 &bull; KALORA AI/IoT",
-    title: "Pitching Sistem Cerdas KALORA",
-    desc: "Presentasi purwarupa smart vending KALORA di hadapan dewan juri kompetisi internasional TISIIF dengan integrasi nutrisi cerdas real-time.",
-    img: "/images/story/tisiif-pitching.jpg",
-    aspect: "aspect-landscape",
-    category: "Riset & Pitching"
-  },
-  {
-    num: "07",
-    tag: "[07] PENGANUGERAHAN",
-    sub: "SILVER MEDALIST &bull; TISIIF",
-    title: "Penganugerahan Silver Medal TISIIF",
-    desc: "Penyerahan sertifikat penghargaan Silver Medal bersama delegasi UNTAG Surabaya atas keunggulan inovasi idea pitching sistem cerdas.",
-    img: "/images/story/tisiif-award.png",
-    aspect: "aspect-landscape",
-    category: "Penghargaan"
   }
 ];
 ---
@@ -77,17 +37,17 @@ const galleryItems = [
 <section class="gallery-section" id="story">
   <div class="container">
     <div class="gallery-header">
-      <div class="section-tag font-mono">// ARSIP MAHASISWA, RISET & INDUSTRI</div>
-      <h2 class="section-title">Galeri Semasa Kuliah & Riset</h2>
+      <div class="section-tag font-mono">// ARSIP MAHASISWA & RISET TERPILIH</div>
+      <h2 class="section-title">Dokumentasi Rekam Jejak</h2>
       <p class="section-subtitle">
-        Fragmen rekam jejak nyata: momen wisuda sarjana, kejuaraan Gold Medal JISF & Silver Medal TISIIF, implementasi sistem magang di Dinas PU Bina Marga Jatim, hingga pengabdian KKN.
+        Cuplikan rekam jejak nyata semasa menempuh studi: momen kelulusan sarjana, penghargaan medali emas kompetisi internasional, hingga pengalaman kerja magang di instansi kedinasan.
       </p>
     </div>
 
-    <!-- Gallery Grid (Editorial Monochrome Masonry) -->
+    <!-- Curated 3-Card Showcase Grid -->
     <div class="gallery-grid">
-      {galleryItems.map((item, index) => (
-        <div class={`gallery-card ${item.aspect} ${index === 0 ? 'card-featured' : ''}`}>
+      {featuredStoryItems.map((item) => (
+        <div class={`gallery-card ${item.aspect}`}>
           <div 
             class="photo-wrapper" 
             data-full={item.img} 
@@ -107,7 +67,7 @@ const galleryItems = [
               <span class="photo-tag font-mono" set:html={item.tag} />
               <span class="photo-sub font-mono" set:html={item.sub} />
             </div>
-            <div class="photo-zoom-hint font-mono">[KLIK UNTUK MEMPERBESAR]</div>
+            <div class="photo-zoom-hint font-mono">[PERBESAR]</div>
           </div>
 
           <div class="card-caption font-mono">
@@ -120,6 +80,20 @@ const galleryItems = [
           </div>
         </div>
       ))}
+    </div>
+
+    <!-- Direct CTA to Full Gallery Page -->
+    <div class="gallery-cta-wrapper">
+      <div class="cta-inner">
+        <div class="cta-info font-mono">
+          <span class="cta-tag">// ARSIP LENGKAP TERSEDIA</span>
+          <span class="cta-count">[7 DOKUMENTASI FOTO]</span>
+        </div>
+        <a href="/galeri" class="btn btn-primary btn-all-gallery">
+          <span>Lihat Semua Dokumentasi & Arsip Lengkap</span>
+          <span class="font-mono">&rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -148,15 +122,15 @@ const galleryItems = [
   }
 
   .gallery-header {
-    margin-bottom: 48px;
+    margin-bottom: 44px;
     text-align: left;
   }
 
-  /* Grid Layout: Responsive 3-Column Editorial Grid */
+  /* 3-Column Showcase Grid */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 36px 28px;
+    gap: 32px 28px;
     align-items: start;
   }
 
@@ -183,10 +157,6 @@ const galleryItems = [
     aspect-ratio: 3 / 4;
   }
 
-  .aspect-poster {
-    aspect-ratio: 3 / 4;
-  }
-
   .aspect-landscape {
     aspect-ratio: 16 / 11;
   }
@@ -198,12 +168,6 @@ const galleryItems = [
     object-position: center center;
     display: block;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  /* Photo aspect fit overrides */
-  .aspect-poster .gallery-img {
-    object-fit: cover;
-    object-position: center top;
   }
 
   .photo-wrapper:hover {
@@ -305,6 +269,47 @@ const galleryItems = [
     font-size: 0.82rem;
     color: var(--text-secondary);
     line-height: 1.55;
+  }
+
+  /* CTA Button Wrapper */
+  .gallery-cta-wrapper {
+    margin-top: 50px;
+    padding-top: 32px;
+    border-top: 1px dashed var(--border-light);
+  }
+
+  .cta-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    gap: 20px;
+  }
+
+  .cta-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+  }
+
+  .cta-tag {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .cta-count {
+    color: var(--text-muted);
+  }
+
+  .btn-all-gallery {
+    padding: 12px 24px;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    text-decoration: none;
   }
 
   /* Lightbox Modal */
@@ -429,29 +434,21 @@ const galleryItems = [
   }
 
   /* Responsive Rules */
-  @media (max-width: 1024px) {
-    .gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px 24px;
-    }
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 968px) {
     .gallery-grid {
       grid-template-columns: 1fr;
       gap: 36px;
     }
 
-    .gallery-card {
-      max-width: 100%;
+    .cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
     }
 
-    .modal-content {
-      max-height: 85vh;
-    }
-
-    .modal-image-box {
-      max-height: 60vh;
+    .btn-all-gallery {
+      width: 100%;
+      text-align: center;
     }
   }
 </style>
