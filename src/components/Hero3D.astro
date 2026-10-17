@@ -1,0 +1,393 @@
+---
+// Hero3D.astro - Interactive 3D Tech Core with Three.js
+---
+
+<div class="hero-3d-container" id="hero3dContainer">
+  <canvas id="hero3dCanvas"></canvas>
+  <div class="hero-3d-hint font-mono">
+    <span class="hint-dot"></span>
+    <span>3D INTERACTIVE CORE // THREE.JS</span>
+  </div>
+</div>
+
+<style>
+  .hero-3d-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  #hero3dCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+  }
+
+  #hero3dCanvas:active {
+    cursor: grabbing;
+  }
+
+  .hero-3d-hint {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    background: rgba(var(--bg-card-rgb, 12, 12, 15), 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-light);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.7;
+    transition: var(--transition);
+  }
+
+  .hint-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-3d-hint {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  function initHero3D() {
+    const container = document.getElementById('hero3dContainer');
+    const canvas = document.getElementById('hero3dCanvas') as HTMLCanvasElement;
+    if (!container || !canvas) return;
+
+    // 1. Scene setup
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      100
+    );
+    camera.position.z = 7;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 2. Color Palette helper (based on dark/light theme)
+    function isDark(): boolean {
+      return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+
+    function getPalette() {
+      const dark = isDark();
+      return {
+        outerWireframe: dark ? 0xffffff : 0x18181b,
+        outerOpacity: dark ? 0.22 : 0.16,
+        innerCore: dark ? 0xe4e4e7 : 0x27272a,
+        innerOpacity: dark ? 0.45 : 0.35,
+        ringPrimary: dark ? 0xd4d4d8 : 0x3f3f46,
+        ringSecondary: dark ? 0x71717a : 0xa1a1aa,
+        particleColor: dark ? 0xffffff : 0x09090b,
+        pointSize: dark ? 0.045 : 0.04,
+      };
+    }
+
+    let palette = getPalette();
+
+    // 3. 3D Elements Group
+    const rootGroup = new THREE.Group();
+    scene.add(rootGroup);
+
+    // Dynamic positioning offset (positions 3D core perfectly behind/around the portrait)
+    function updateGroupPosition() {
+      if (window.innerWidth >= 1200) {
+        rootGroup.position.x = 2.4;
+        rootGroup.position.y = 0.0;
+        rootGroup.scale.set(1.0, 1.0, 1.0);
+      } else if (window.innerWidth >= 968) {
+        rootGroup.position.x = 1.85;
+        rootGroup.position.y = 0.0;
+        rootGroup.scale.set(0.9, 0.9, 0.9);
+      } else {
+        rootGroup.position.x = 0;
+        rootGroup.position.y = 0.7;
+        rootGroup.scale.set(0.7, 0.7, 0.7);
+      }
+    }
+    updateGroupPosition();
+
+    // A. Outer Wireframe Polyhedron (Icosahedron)
+    const outerGeo = new THREE.IcosahedronGeometry(2.0, 1);
+    const outerMat = new THREE.MeshBasicMaterial({
+      color: palette.outerWireframe,
+      wireframe: true,
+      transparent: true,
+      opacity: palette.outerOpacity,
+    });
+    const outerMesh = new THREE.Mesh(outerGeo, outerMat);
+    rootGroup.add(outerMesh);
+
+    // B. Inner Core (Octahedron)
+    const innerGeo = new THREE.OctahedronGeometry(1.05, 0);
+    const innerMat = new THREE.MeshBasicMaterial({
+      color: palette.innerCore,
+      wireframe: true,
+      transparent: true,
+      opacity: palette.innerOpacity,
+    });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    rootGroup.add(innerMesh);
+
+    // C. Gyroscope Orbit Rings (Torus)
+    const ring1Geo = new THREE.TorusGeometry(2.5, 0.015, 8, 80);
+    const ring1Mat = new THREE.MeshBasicMaterial({
+      color: palette.ringPrimary,
+      transparent: true,
+      opacity: 0.35,
+    });
+    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+    ring1.rotation.x = Math.PI / 3;
+    ring1.rotation.y = Math.PI / 6;
+    rootGroup.add(ring1);
+
+    const ring2Geo = new THREE.TorusGeometry(2.8, 0.01, 8, 80);
+    const ring2Mat = new THREE.MeshBasicMaterial({
+      color: palette.ringSecondary,
+      transparent: true,
+      opacity: 0.25,
+    });
+    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+    ring2.rotation.x = -Math.PI / 4;
+    ring2.rotation.z = Math.PI / 4;
+    rootGroup.add(ring2);
+
+    // D. Orbiting Data Particles
+    const particleCount = 90;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      const radius = 2.2 + Math.random() * 1.5;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
+
+      particlePositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      particlePositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      particlePositions[i * 3 + 2] = radius * Math.cos(phi);
+    }
+
+    particleGeo.setAttribute(
+      'position',
+      new THREE.BufferAttribute(particlePositions, 3)
+    );
+
+    const particleMat = new THREE.PointsMaterial({
+      color: palette.particleColor,
+      size: palette.pointSize,
+      transparent: true,
+      opacity: 0.7,
+    });
+    const particles = new THREE.Points(particleGeo, particleMat);
+    rootGroup.add(particles);
+
+    // 4. Update Materials on Theme Change
+    function updateTheme() {
+      palette = getPalette();
+      outerMat.color.setHex(palette.outerWireframe);
+      outerMat.opacity = palette.outerOpacity;
+      innerMat.color.setHex(palette.innerCore);
+      innerMat.opacity = palette.innerOpacity;
+      ring1Mat.color.setHex(palette.ringPrimary);
+      ring2Mat.color.setHex(palette.ringSecondary);
+      particleMat.color.setHex(palette.particleColor);
+      particleMat.size = palette.pointSize;
+    }
+
+    const themeObserver = new MutationObserver(() => {
+      updateTheme();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    // 5. Mouse & Drag Interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+    let dragVelocity = { x: 0, y: 0 };
+
+    window.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      mouseX = x;
+      mouseY = y;
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - previousMousePosition.x;
+      const deltaY = e.clientY - previousMousePosition.y;
+
+      dragVelocity.x = deltaX * 0.005;
+      dragVelocity.y = deltaY * 0.005;
+
+      rootGroup.rotation.y += dragVelocity.x;
+      rootGroup.rotation.x += dragVelocity.y;
+
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    // Touch interaction for mobile
+    let touchStart = { x: 0, y: 0 };
+    canvas.addEventListener(
+      'touchstart',
+      (e) => {
+        if (e.touches.length === 1) {
+          touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      },
+      { passive: true }
+    );
+
+    canvas.addEventListener(
+      'touchmove',
+      (e) => {
+        if (e.touches.length === 1) {
+          const deltaX = e.touches[0].clientX - touchStart.x;
+          const deltaY = e.touches[0].clientY - touchStart.y;
+          rootGroup.rotation.y += deltaX * 0.003;
+          rootGroup.rotation.x += deltaY * 0.003;
+          touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+      },
+      { passive: true }
+    );
+
+    // 6. Resize handling
+    function onResize() {
+      if (!container) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      updateGroupPosition();
+    }
+    window.addEventListener('resize', onResize);
+
+    // 7. Intersection Observer (Only render when in view to save GPU)
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(container);
+
+    // 8. Animation Loop
+    let clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (!isVisible) return;
+
+      const delta = clock.getDelta();
+
+      // Continuous subtle ambient rotation
+      outerMesh.rotation.y += delta * 0.18;
+      outerMesh.rotation.x += delta * 0.08;
+
+      innerMesh.rotation.y -= delta * 0.25;
+      innerMesh.rotation.z += delta * 0.15;
+
+      ring1.rotation.z += delta * 0.12;
+      ring2.rotation.y += delta * 0.14;
+
+      particles.rotation.y += delta * 0.06;
+
+      // Inertia decay for drag
+      if (!isDragging) {
+        dragVelocity.x *= 0.95;
+        dragVelocity.y *= 0.95;
+        rootGroup.rotation.y += dragVelocity.x;
+        rootGroup.rotation.x += dragVelocity.y;
+      }
+
+      // Smooth mouse parallax interpolation
+      targetRotationY = mouseX * 0.35;
+      targetRotationX = -mouseY * 0.35;
+
+      camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.04;
+      camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.04;
+      camera.lookAt(rootGroup.position);
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  }
+
+  // Run when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHero3D);
+  } else {
+    initHero3D();
+  }
+</script>
