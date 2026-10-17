@@ -4,10 +4,6 @@
 
 <div class="hero-3d-container" id="hero3dContainer">
   <canvas id="hero3dCanvas"></canvas>
-  <div class="hero-3d-hint font-mono">
-    <span class="hint-dot"></span>
-    <span>3D INTERACTIVE CORE // THREE.JS</span>
-  </div>
 </div>
 
 <style>
@@ -47,52 +43,6 @@
     cursor: grabbing;
   }
 
-  .hero-3d-hint {
-    position: absolute;
-    bottom: 16px;
-    right: 24px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    background: rgba(var(--bg-card-rgb, 12, 12, 15), 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--border-light);
-    padding: 4px 10px;
-    border-radius: var(--radius-full);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.7;
-    transition: var(--transition);
-  }
-
-  .hint-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    animation: pulse 2s infinite ease-in-out;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 0.4;
-      transform: scale(0.9);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-3d-hint {
-      display: none;
-    }
-  }
 </style>
 
 <script>
